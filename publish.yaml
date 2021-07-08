@@ -1,0 +1,124 @@
+Type: Component
+Name: cfc
+Provider:
+  - 百度云
+Version: 0.0.1
+Description: 百度云函数组件
+HomePage: xxx
+Tags:
+  - 函数计算
+Category: 基础云产品
+Commands:
+  deploy: 部署资源
+Properties:
+  code:
+    Required: true
+    Description:
+    Type:
+      - Struct:
+        codeUri:
+          Required: true
+          Description: 项目路径
+          Type:
+            - String
+        publish:
+          Required: false
+          Description: 是否直接发布版本
+          Type:
+            - Boolean
+  functionName:
+    Required: true
+    Description: 函数名称
+    Type:
+      - String
+  description:
+    Required: false
+    Description: 一个简短的说明 0-256字符
+    Type:
+      - String
+  handler:
+    Required: true
+    Description: 调用的入口函数, 最大长度为128
+    Type:
+      - String
+  runtime:
+    Required: true
+    Description: 运行语言
+    Type:
+      - Enum:
+        - nodejs8.4
+        - nodejs8.5
+        - nodejs10
+        - nodejs12
+        - python2
+        - python3
+        - java8
+        - java8_stream
+        - golang
+        - php7
+        - lua5.3
+        - dotnetcore2.2
+        - powershell6.2
+  timeout:
+    Required: true
+    Description: 超时时间1-300
+    Type:
+      - int
+  endpoint:
+    Description:
+      zh: 服务域名
+      en: endpoint
+    Required: true
+    Type:
+      - Enum:
+          - cfc.bj.baidubce.com
+          - cfc.gz.baidubce.com
+          - cfc.su.baidubce.com
+  protocol:
+    Description:
+      zh: 协议类型
+      en: protocol
+    Required: true
+    Type:
+      - Enum:
+          - http
+          - https
+  memorySize:
+    Required: false
+    Description: 内存的大小，以MB为单位，默认128。必须为128的倍数
+    Type:
+      - int
+  logType:
+    Required: false
+    Description: 日志类型bos（对象存储）/ none
+    Type:
+      - String
+  logBosDir:
+    Required: false
+    Description: 日志存储的Bucket路径
+    Type:
+      - String
+  vpcConfig:
+    Required: false
+    Description: 函数绑定的Vpc配置
+    - Struct:
+      vpcId:
+        Required: true
+        Description: 要绑定的VpcID
+        Type:
+          - String
+      subnetIds:
+        Required: true
+        Description: 绑定的子网列表
+        Type:
+          - List<String>
+      securityGroupIds:
+        Required: true
+        Description: 绑定的安全组列表
+        Type:
+          - List<String>
+  deadLetterTopic:
+    Required: true
+    Description: 函数死信队列配置
+    Type:
+      - String
