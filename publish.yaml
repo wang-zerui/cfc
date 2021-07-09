@@ -10,10 +10,13 @@ Tags:
 Category: 基础云产品
 Commands:
   deploy: 部署资源
+Service:
+  函数计算:
+    Authorities:
+      - 创建函数
 Properties:
   code:
     Required: true
-    Description:
     Type:
       - Struct:
         codeUri:
@@ -85,9 +88,25 @@ Properties:
           - https
   memorySize:
     Required: false
-    Description: 内存的大小，以MB为单位，默认128。必须为128的倍数
+    Default: 128
+    Description: 内存的大小，以MB为单位,必须为128的倍数
     Type:
       - int
+  environment:
+    Required: false
+    Description: 环境变量
+    Type:
+      - List<Struct>:
+          Key:
+            Required: false
+            Description: 环境变量Key
+            Type:
+              - String
+          Value:
+            Required: false
+            Description: 环境变量Value
+            Type:
+              - String
   logType:
     Required: false
     Description: 日志类型bos（对象存储）/ none

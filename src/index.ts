@@ -5,6 +5,7 @@ import fs from 'fs'
 import path from 'path'
 import JSZip from 'jszip'
 import get from 'lodash.get';
+let CONFIGS = require('./config')
 let zip = new JSZip();
 
 export default class ComponentDemo extends BaseComponent {
@@ -61,17 +62,16 @@ export default class ComponentDemo extends BaseComponent {
 		}
 	}
   /**
-   * demo 实例
+   * 部署函数
    * @param inputs
    * @returns
    */
-
   public async deploy(inputs: InputProps) {
     let CfcClient =require('@baiducloud/sdk').CfcClient;
     const credentials = get(inputs, "credentials");
-    const endpoint = get(inputs, "props.endpoint");
+    const endpoint = get(inputs, "props.endpoint") || CONFIGS.endpoint;
     const environment = get(inputs, "props.environment");
-    const functionName = get(inputs, "props.functionName");
+    const functionName = get(inputs, "props.functionName") || CONFIGS.functionName;
     const description = get(inputs, "props.description");
     const timeout = get(inputs, "props.timeout");
     const runtime = get(inputs, "props.runtime");
@@ -79,35 +79,33 @@ export default class ComponentDemo extends BaseComponent {
     const memorySize = get(inputs, "props.memorySize");
     const codeUri = get(inputs, "props.code.codeUri");
     const publish = get(inputs, "props.code.publish");
-    const dryRun = get(inputs, "props.code.dryRun");
     const config = {
         endpoint: endpoint,
         credentials: {
             ak: credentials.AccessKeyID,
             sk: credentials.SecretAccessKey,
         }
-	};
-    logger.info(config);
+  	};
     let client = new CfcClient(config);
     const ZipFile = await this.startZip(codeUri);
     let body =
-      {
-        'Code': {
-          'ZipFile': ZipFile,
-          'Publish': publish,
-          'DryRun': dryRun
-        },
-        'Description': description,
-        'Timeout': timeout,
-        'FunctionName': functionName,
-        'Handler': handler,
-        'Runtime': runtime,
-        'MemorySize': memorySize,
-        'Environment': {
-          'Variables': environment
-        }
-      };
-    logger.info(body);
+    {
+      'Code': {
+        'ZipFile': ZipFile,
+        'Publish': publish,
+      },
+      'Description': description,
+      'Timeout': timeout,
+      'FunctionName': functionName,
+      'Handler': handler,
+      'Runtime': runtime,
+      'Environment': {
+        'Variables': environment
+      }
+    };
+    if(memorySize){
+      body["MemorySize"] = memorySize;
+    }
     client.createFunction(body).then(function (response) {
         // 创建函数成功
         logger.info("Creating Funtion");
