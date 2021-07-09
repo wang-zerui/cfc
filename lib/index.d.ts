@@ -15,7 +15,7 @@ export default class ComponentDemo extends BaseComponent {
      */
     protected startZip(codePath: string): Promise<string>;
     /**
-     * demo 实例
+     * 部署函数
      * @param inputs
      * @returns
      */

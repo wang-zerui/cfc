@@ -13,13 +13,19 @@ services:
         codeUri: ./
         publish: false
         dryRun: true
-      functionName: testHelloWorld
+      functionName: testHelloWorld-2
       description: CFC demo
       handler: index.handler 
       endpoint: https://cfc.bj.baidubce.com
       runtime: nodejs12
       timeout: 3
       memorySize: 128
+      trigger:
+        source: cfc-http-trigger/v1/CFCAPI	
+        data: 
+          ResourcePath: /
+          Method: GET
+          AuthType: anonymous
       environment:
         additionalProp1: 环境变量1
         additionalProp2: 环境变量2

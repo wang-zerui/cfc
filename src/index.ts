@@ -103,14 +103,26 @@ export default class ComponentDemo extends BaseComponent {
         'Variables': environment
       }
     };
+    //TODO:处理非必须参数
     if(memorySize){
       body["MemorySize"] = memorySize;
     }
+    //创建函数
     client.createFunction(body).then(function (response) {
-        // 创建函数成功
-        logger.info("Creating Funtion");
-        logger.info(response.body);
-        return response;
+      logger.info("Creating Funtion");
+      logger.info(response.body);
+      return response;
+    }).then(function (response) {
+      logger.info("Creating Trigger");
+      let body = {
+        'Target': response.body.FunctionBrn,
+        'Source': inputs.props.trigger.source,
+        'Data': inputs.props.trigger.data,
+      }
+      return client.createRelation(body);
+    }).then(function (response) {
+      logger.info(response.body);
+      return response;
     }).catch(function (err) {
       // 执行失败
       logger.error(err);

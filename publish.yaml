@@ -141,3 +141,33 @@ Properties:
     Description: 函数死信队列配置
     Type:
       - String
+  trigger:
+    Required: true
+    Description: 触发器配置
+    Type:
+      - Struct:
+        source:
+          Required: true
+          Description: 触发源
+          Type:
+            - Enum:
+              - dueros
+              - bos/your-bucket-name
+              - duedge
+              - cfc-http-trigger/v1/CFCAPI
+              - cfc-crontab-trigger/v1/
+        data:
+          Required: true
+          Description: 触发器参数配置
+          Type:
+            - List<Struct>:
+              Key:
+                Required: false
+                Description: 配置参数Key
+                Type:
+                  - String
+              Value:
+                Required: false
+                Description: 配置参数Value
+                Type:
+                  - String

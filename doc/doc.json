@@ -204,7 +204,7 @@
 							"kindString": "Call signature",
 							"flags": {},
 							"comment": {
-								"shortText": "demo 实例",
+								"shortText": "部署函数",
 								"returns": "\n"
 							},
 							"parameters": [
@@ -245,7 +245,7 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 19,
+							"line": 20,
 							"character": 24
 						}
 					],
@@ -322,7 +322,7 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 46,
+							"line": 47,
 							"character": 25
 						}
 					],
@@ -396,7 +396,7 @@
 			"sources": [
 				{
 					"fileName": "index.ts",
-					"line": 10,
+					"line": 11,
 					"character": 34
 				}
 			],
