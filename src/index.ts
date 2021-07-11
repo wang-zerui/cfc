@@ -1,3 +1,12 @@
+const {
+  HLogger,
+  ILogger,
+  getCredential,
+  help,
+  commandParse,
+  loadComponent,
+  reportComponent
+} = require('@serverless-devs/core')
 import BaseComponent from './common/base';
 import logger from './common/logger';
 import { InputProps } from './common/entity';
@@ -7,6 +16,8 @@ import JSZip from 'jszip'
 import get from 'lodash.get';
 let CONFIGS = require('./config')
 let zip = new JSZip();
+let CfcClient =require('@baiducloud/sdk').CfcClient;
+
 
 export default class ComponentDemo extends BaseComponent {
   constructor(props) {
@@ -66,8 +77,57 @@ export default class ComponentDemo extends BaseComponent {
    * @param inputs
    * @returns
    */
+  public async parseInputs(inputs: InputProps) {
+    const credentials = get(inputs, "credentials");
+    const props = inputs.props;
+    const ZipFile = await this.startZip(props.code.codeUri);
+    let tempInputs = {
+      config: {
+        endpoint: props.endpoint|| CONFIGS.defaultEndpoint,
+        credentials: {
+            ak: credentials.AccessKeyID,
+            sk: credentials.SecretAccessKey,
+        }
+      },
+      body:{
+        Code:{
+          ZipFile,
+        },
+        Description: props.description || CONFIGS.description,
+        FunctionName: props.functionName || CONFIGS.functionName,
+        Runtime: props.runtime,
+        MemorySize: props.memorySize || CONFIGS.memorySize,
+        Handler: props.handler || CONFIGS.handler(props.runtime),
+        Timeout: props.timeout || CONFIGS.timeout,
+      }     
+    }
+    //TODO:这里可以进行简化
+    if(props.environment){
+      tempInputs['Environment'] = {'Variables': inputs.props.environment};
+    }
+    if(props.logType){
+      tempInputs['LogType'] = props.logType;
+    }
+    if(props.vpcConfig){
+      tempInputs['LogType'] = props.vpcConfig;
+    }
+    if(props.deadLetterTopic){
+      tempInputs['DeadLetterTopic'] = props.deadLetterTopic;
+    }
+    if(props.deadLetterTopic){
+      tempInputs['LogBosDir'] = props.logBosDir;
+    }
+    const cfcInputs = tempInputs;
+    return cfcInputs;
+  }
+
+  /**
+   * 部署函数
+   * @param inputs
+   * @returns
+   */
   public async deploy(inputs: InputProps) {
-    let CfcClient =require('@baiducloud/sdk').CfcClient;
+
     const credentials = get(inputs, "credentials");
     const endpoint = get(inputs, "props.endpoint") || CONFIGS.endpoint;
     const environment = get(inputs, "props.environment");
@@ -86,6 +146,9 @@ export default class ComponentDemo extends BaseComponent {
             sk: credentials.SecretAccessKey,
         }
   	};
+    reportComponent("cfc", {
+      "commands": 'deploy',
+    });
     let client = new CfcClient(config);
     const ZipFile = await this.startZip(codeUri);
     let body =
@@ -103,10 +166,14 @@ export default class ComponentDemo extends BaseComponent {
         'Variables': environment
       }
     };
-    //TODO:处理非必须参数
+    //默认值
     if(memorySize){
       body["MemorySize"] = memorySize;
     }
+    if(environment){
+      body["Environment"] = {'Variables': environment};
+    }
+    
     //创建函数
     client.createFunction(body).then(function (response) {
       logger.info("Creating Funtion");

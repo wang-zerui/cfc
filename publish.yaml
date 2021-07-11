@@ -98,12 +98,12 @@ Properties:
     Type:
       - List<Struct>:
           Key:
-            Required: false
+            Required: true
             Description: 环境变量Key
             Type:
               - String
           Value:
-            Required: false
+            Required: true
             Description: 环境变量Value
             Type:
               - String
