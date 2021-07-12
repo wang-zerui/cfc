@@ -1,5 +1,19 @@
 {
+	"1": 1,
 	"deploy test": "deploy test",
 	"Creating Funtion": "Creating Funtion",
-	"Creating Trigger": "Creating Trigger"
+	"Creating Trigger": "Creating Trigger",
+	"Updating function code...": "Updating function code...",
+	"Update successfully!": "Update successfully!",
+	"Updating function configuration...": "Updating function configuration...",
+	"获取brn错误": "获取brn错误",
+	"获取触发器列表失败": "获取触发器列表失败",
+	"brn:bce:cfc:bj:eb4fdf97f9b8d875eae5eb1d91a026a1:function:testHelloWorld-2:$LATEST": "brn:bce:cfc:bj:eb4fdf97f9b8d875eae5eb1d91a026a1:function:testHelloWorld-2:$LATEST",
+	"触发器列表：": "触发器列表：",
+	"Update successfully": "Update successfully",
+	"Updating trigger": "Updating trigger",
+	"Deletting trigger": "Deletting trigger",
+	"Delete trigger successfully": "Delete trigger successfully",
+	"Deleting function": "Deleting function",
+	"Delete successfully": "Delete successfully"
 }

@@ -1,0 +1,13 @@
+let resp = {
+    "version" : "2.0",
+    "response" : {
+        "outputSpeech": {
+            "type" : "PlainText",
+           "text" : "你好，王泽睿的世界！",
+        },
+        "shouldEndSession" : false
+    }
+}
+exports.handler = (event, context, callback) => {
+   callback(null, resp);
+};

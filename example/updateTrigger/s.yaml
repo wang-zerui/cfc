@@ -3,27 +3,19 @@ name: component-test   #  项目名称
 
 services:
   component-test: #  服务名称
-    component: ../lib  # 这里引入的是相对路径，正式配置替换成你自己的component名称即可 
+    component: ../../lib  # 这里引入的是相对路径，正式配置替换成你自己的component名称即可 
     # actions: # 自定义执行逻辑
     #   pre-deploy: # 在deploy之前运行
     #     - run: npm run doc  # 要运行的命令行
     #       path: ../ # 命令行运行的路径
     props:
-      code:
-        codeUri: ./
-        publish: false
-        dryRun: true
       functionName: testHelloWorld-2
-      description: CFC demo
-      handler: index.handler 
-      endpoint: https://cfc.bj.baidubce.com
-      runtime: nodejs12
-      timeout: 3
-      memorySize: 128
+      //functionBrn: brn:bce:cfc:bj:eb4fdf97f9b8d875eae5eb1d91a026a1:function:testHelloWorld-2:$LATEST
       trigger:
+        relationId: brn:bce:cfc-http-trigger:bj:eb4fdf97f9b8d875eae5eb1d91a026a1:583d0dfc5cb5970e334be9323d4e48f1/cfc/GET/adfadf
         source: cfc-http-trigger/v1/CFCAPI	
         data: 
-          ResourcePath: /
+          ResourcePath: /adf
           Method: GET
           AuthType: anonymous
       environment:

@@ -29,6 +29,11 @@ Properties:
           Description: 是否直接发布版本
           Type:
             - Boolean
+        dryRun:
+          Required: false
+          Description: 是否直接发布版本
+          Type:
+            - Boolean
   functionName:
     Required: true
     Description: 函数名称
