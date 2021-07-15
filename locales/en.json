@@ -15,5 +15,11 @@
 	"Deletting trigger": "Deletting trigger",
 	"Delete trigger successfully": "Delete trigger successfully",
 	"Deleting function": "Deleting function",
-	"Delete successfully": "Delete successfully"
+	"Delete successfully": "Delete successfully",
+	"更新代码失败": "更新代码失败",
+	"Creating Funtion...": "Creating Funtion...",
+	"Creating Trigger...": "Creating Trigger...",
+	"brn:bce:cfc:bj:eb4fdf97f9b8d875eae5eb1d91a026a1:function:testHelloWorld-5:$LATEST": "brn:bce:cfc:bj:eb4fdf97f9b8d875eae5eb1d91a026a1:function:testHelloWorld-5:$LATEST",
+	"object": "object",
+	"false": false
 }

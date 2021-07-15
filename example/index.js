@@ -3,7 +3,7 @@ let resp = {
     "response" : {
         "outputSpeech": {
             "type" : "PlainText",
-           "text" : "你好，王泽睿的世界！",
+           "text" : "你好，世界！",
         },
         "shouldEndSession" : false
     }

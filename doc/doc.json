@@ -56,7 +56,7 @@
 					}
 				},
 				{
-					"id": 50,
+					"id": 63,
 					"name": "client",
 					"kind": 1024,
 					"kindString": "Property",
@@ -80,7 +80,7 @@
 					}
 				},
 				{
-					"id": 51,
+					"id": 64,
 					"name": "inputs",
 					"kind": 1024,
 					"kindString": "Property",
@@ -97,7 +97,7 @@
 					}
 				},
 				{
-					"id": 54,
+					"id": 67,
 					"name": "__doc",
 					"kind": 2048,
 					"kindString": "Method",
@@ -111,14 +111,14 @@
 					],
 					"signatures": [
 						{
-							"id": 55,
+							"id": 68,
 							"name": "__doc",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 56,
+									"id": 69,
 									"name": "projectName",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -147,7 +147,7 @@
 					}
 				},
 				{
-					"id": 52,
+					"id": 65,
 					"name": "__getBasePath",
 					"kind": 2048,
 					"kindString": "Method",
@@ -161,7 +161,7 @@
 					],
 					"signatures": [
 						{
-							"id": 53,
+							"id": 66,
 							"name": "__getBasePath",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -182,7 +182,178 @@
 					}
 				},
 				{
-					"id": 47,
+					"id": 56,
+					"name": "checkCreated",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {
+						"isPrivate": true
+					},
+					"sources": [
+						{
+							"fileName": "index.ts",
+							"line": 375,
+							"character": 28
+						}
+					],
+					"signatures": [
+						{
+							"id": 57,
+							"name": "checkCreated",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"comment": {
+								"shortText": "检查函数是否已有",
+								"returns": "\n"
+							},
+							"parameters": [
+								{
+									"id": 58,
+									"name": "client",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"comment": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "any"
+									}
+								},
+								{
+									"id": 59,
+									"name": "functionName",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"comment": {},
+									"type": {
+										"type": "reference",
+										"name": "String"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"typeArguments": [
+									{
+										"type": "intrinsic",
+										"name": "void"
+									}
+								],
+								"name": "Promise"
+							}
+						}
+					]
+				},
+				{
+					"id": 53,
+					"name": "deletefunction",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {
+						"isPublic": true
+					},
+					"sources": [
+						{
+							"fileName": "index.ts",
+							"line": 346,
+							"character": 30
+						}
+					],
+					"signatures": [
+						{
+							"id": 54,
+							"name": "deletefunction",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"comment": {
+								"shortText": "删除函数",
+								"returns": "\n"
+							},
+							"parameters": [
+								{
+									"id": 55,
+									"name": "inputs",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"comment": {},
+									"type": {
+										"type": "reference",
+										"name": "InputProps"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"typeArguments": [
+									{
+										"type": "intrinsic",
+										"name": "void"
+									}
+								],
+								"name": "Promise"
+							}
+						}
+					]
+				},
+				{
+					"id": 50,
+					"name": "deletetrigger",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {
+						"isPublic": true
+					},
+					"sources": [
+						{
+							"fileName": "index.ts",
+							"line": 303,
+							"character": 29
+						}
+					],
+					"signatures": [
+						{
+							"id": 51,
+							"name": "deletetrigger",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"comment": {
+								"shortText": "删除触发器",
+								"returns": "\n"
+							},
+							"parameters": [
+								{
+									"id": 52,
+									"name": "inputs",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"comment": {},
+									"type": {
+										"type": "reference",
+										"name": "InputProps"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"typeArguments": [
+									{
+										"type": "intrinsic",
+										"name": "void"
+									}
+								],
+								"name": "Promise"
+							}
+						}
+					]
+				},
+				{
+					"id": 60,
 					"name": "deploy",
 					"kind": 2048,
 					"kindString": "Method",
@@ -192,13 +363,13 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 260,
+							"line": 392,
 							"character": 21
 						}
 					],
 					"signatures": [
 						{
-							"id": 48,
+							"id": 61,
 							"name": "deploy",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -209,7 +380,7 @@
 							},
 							"parameters": [
 								{
-									"id": 49,
+									"id": 62,
 									"name": "inputs",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -245,7 +416,7 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 29,
+							"line": 30,
 							"character": 34
 						}
 					],
@@ -277,7 +448,7 @@
 								"typeArguments": [
 									{
 										"type": "intrinsic",
-										"name": "void"
+										"name": "any"
 									}
 								],
 								"name": "Promise"
@@ -296,7 +467,7 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 99,
+							"line": 103,
 							"character": 28
 						}
 					],
@@ -308,7 +479,7 @@
 							"kindString": "Call signature",
 							"flags": {},
 							"comment": {
-								"shortText": "部署函数",
+								"shortText": "处理输入",
 								"returns": "\n"
 							},
 							"parameters": [
@@ -610,7 +781,7 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 234,
+							"line": 229,
 							"character": 27
 						}
 					],
@@ -622,7 +793,7 @@
 							"kindString": "Call signature",
 							"flags": {},
 							"comment": {
-								"shortText": "部署函数",
+								"shortText": "获取触发器列表",
 								"returns": "\n"
 							},
 							"parameters": [
@@ -663,7 +834,7 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 50,
+							"line": 54,
 							"character": 24
 						}
 					],
@@ -740,7 +911,7 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 77,
+							"line": 81,
 							"character": 25
 						}
 					],
@@ -784,23 +955,23 @@
 				},
 				{
 					"id": 38,
-					"name": "updatecode",
+					"name": "updateCode",
 					"kind": 2048,
 					"kindString": "Method",
 					"flags": {
-						"isPublic": true
+						"isPrivate": true
 					},
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 156,
-							"character": 25
+							"line": 151,
+							"character": 26
 						}
 					],
 					"signatures": [
 						{
 							"id": 39,
-							"name": "updatecode",
+							"name": "updateCode",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
@@ -837,23 +1008,23 @@
 				},
 				{
 					"id": 41,
-					"name": "updateconfig",
+					"name": "updateConfig",
 					"kind": 2048,
 					"kindString": "Method",
 					"flags": {
-						"isPublic": true
+						"isPrivate": true
 					},
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 194,
-							"character": 27
+							"line": 189,
+							"character": 28
 						}
 					],
 					"signatures": [
 						{
 							"id": 42,
-							"name": "updateconfig",
+							"name": "updateConfig",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
@@ -864,6 +1035,59 @@
 							"parameters": [
 								{
 									"id": 43,
+									"name": "inputs",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"comment": {},
+									"type": {
+										"type": "reference",
+										"name": "InputProps"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"typeArguments": [
+									{
+										"type": "intrinsic",
+										"name": "void"
+									}
+								],
+								"name": "Promise"
+							}
+						}
+					]
+				},
+				{
+					"id": 47,
+					"name": "updatetrigger",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {
+						"isPublic": true
+					},
+					"sources": [
+						{
+							"fileName": "index.ts",
+							"line": 258,
+							"character": 29
+						}
+					],
+					"signatures": [
+						{
+							"id": 48,
+							"name": "updatetrigger",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"comment": {
+								"shortText": "更新触发器",
+								"returns": "\n"
+							},
+							"parameters": [
+								{
+									"id": 49,
 									"name": "inputs",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -901,31 +1125,35 @@
 					"title": "Properties",
 					"kind": 1024,
 					"children": [
-						50,
-						51
+						63,
+						64
 					]
 				},
 				{
 					"title": "Methods",
 					"kind": 2048,
 					"children": [
-						54,
-						52,
-						47,
+						67,
+						65,
+						56,
+						53,
+						50,
+						60,
 						5,
 						16,
 						44,
 						8,
 						13,
 						38,
-						41
+						41,
+						47
 					]
 				}
 			],
 			"sources": [
 				{
 					"fileName": "index.ts",
-					"line": 22,
+					"line": 23,
 					"character": 34
 				}
 			],

@@ -14,6 +14,7 @@ import fs from 'fs'
 import path from 'path'
 import JSZip from 'jszip'
 import get from 'lodash.get';
+// import { type } from 'os';
 let CONFIGS = require('./config')
 let zip = new JSZip();
 let CfcClient = require('@baiducloud/sdk').CfcClient;
@@ -95,11 +96,11 @@ export default class ComponentDemo extends BaseComponent {
 		}
 	}
   /**
-   * 部署函数
+   * 处理输入
    * @param inputs
-   * @returns
+   * @returns 
    */
-  private async handleInputs(inputs: InputProps) {
+  protected async handleInputs(inputs: InputProps) {
     const credentials = get(inputs, 'credentials');
     const props = inputs.props;
     const ZipFile = await this.startZip(props.code.codeUri || './');
@@ -123,29 +124,20 @@ export default class ComponentDemo extends BaseComponent {
         MemorySize: props.memorySize || CONFIGS.memorySize,
         Handler: props.handler || CONFIGS.handler(props.runtime),
         Timeout: props.timeout || CONFIGS.timeout,
-      }     
+      }
     }
-    //TODO:这里可以进行简化
     if(props.code.publish){
       tempInputs.body.Code['Publish'] = props.code.publish;
     }
     if(props.code.dryRun){
       tempInputs.body.Code['DryRun'] = props.code.dryRun;
     }
-    if(props.environment){
-      tempInputs['Environment'] = {'Variables': inputs.props.environment};
-    }
-    if(props.logType){
-      tempInputs['LogType'] = props.logType;
-    }
-    if(props.vpcConfig){
-      tempInputs['LogType'] = props.vpcConfig;
-    }
-    if(props.deadLetterTopic){
-      tempInputs['DeadLetterTopic'] = props.deadLetterTopic;
-    }
-    if(props.logBosDir){
-      tempInputs['LogBosDir'] = props.logBosDir;
+    const keys = ['Environment', 'LogType', 'DeadLetterTopic', 'LogBosDir'];
+    for(let i of keys){
+      let value = get(props, i.toLowerCase());
+      if(value){
+        tempInputs[i] = value;
+      }
     }
     const cfcInputs = tempInputs;
     return cfcInputs;
@@ -156,7 +148,7 @@ export default class ComponentDemo extends BaseComponent {
    * @param inputs
    * @returns
   */
-  public async updatecode(inputs: InputProps) {
+  protected async updateCode(inputs: InputProps) {          //TODO:修改参数，不再进行多余处理，使用scfInputs
     const props = inputs.props;
     const functionName = props.functionName;
     const codeUri = props.code.codeUri || CONFIGS.codeUri;
@@ -194,7 +186,7 @@ export default class ComponentDemo extends BaseComponent {
    * @param inputs
    * @returns
   */
-  public async updateconfig(inputs: InputProps) {
+  protected async updateConfig(inputs: InputProps) {
     const props = inputs.props;
     const FunctionName =  props.functionName;
     if(!FunctionName){
@@ -243,6 +235,7 @@ export default class ComponentDemo extends BaseComponent {
       }
     };
     let client = new CfcClient(config);
+    logger.info(typeof(client));
     if(inputs.props.functionName  || inputs.props.functionBrn){
       let FunctionBrn = inputs.props.functionBrn || await this.getBrnByFunctionName(inputs);
       logger.info(FunctionBrn);
@@ -372,6 +365,26 @@ export default class ComponentDemo extends BaseComponent {
       logger.error("请提供FunctionName");
     }
   }
+
+  /**
+   * 检查函数是否已有
+   * @param client
+   * @param functionName
+   * @returns
+   */
+  protected async checkCreated(client, functionName: String): Promise<any>{
+    let result = false;
+    await client.listFunctions().then((response)=>{
+      for(let i of response.body.Functions){
+        if(i.FunctionName ===  functionName){
+          result = true
+        }
+      }
+    }).catch((err)=>{
+      logger.error(err);
+    })
+    return result;
+  }
   /**
    * 部署函数
    * @param inputs
@@ -380,35 +393,41 @@ export default class ComponentDemo extends BaseComponent {
   public async deploy(inputs: InputProps) {
     //处理输入
     const scfInputs = await this.handleInputs(inputs);
-    
     reportComponent('cfc', {
       'commands': 'deploy',
     });
-
     let client = new CfcClient(scfInputs.config);
-    client.createFunction(scfInputs.body).then(function (response) {
-      //创建函数
-      logger.info('Creating Funtion...');
-      // TODO:添加输出处理
-      logger.info(response.body);
-      return response;
-    }).then(function (response) {
-      //创建触发器
-      logger.info('Creating Trigger...');
-      let body = {
-        'Target': response.body.FunctionBrn,
-        'Source': inputs.props.trigger.source,
-        'Data': inputs.props.trigger.data,
-      }
-      return client.createRelation(body);
-    }).then(function (response) {
-      // TODO:添加输出处理
-      logger.info(response.body);
-      return response;
-    }).catch(function (err) {
-      // 执行失败
-      logger.error(err);
-    });
+    
+    let isCreated = await this.checkCreated(client, scfInputs.body.FunctionName);
+    logger.info(isCreated);
+    if(isCreated){                                                                // 更新代码及配置
+      this.updateCode(inputs);
+      this.updateConfig(inputs);
+    }else{                                                                        // 创建函数
+      client.createFunction(scfInputs.body).then(function (response) {
+        //创建函数
+        logger.info('Creating Funtion...');
+        // TODO:添加输出处理
+        logger.info(response.body);
+        return response;
+      }).then(function (response) {
+        //创建触发器
+        logger.info('Creating Trigger...');
+        let body = {
+          'Target': response.body.FunctionBrn,
+          'Source': inputs.props.trigger.source,
+          'Data': inputs.props.trigger.data,
+        }
+        return client.createRelation(body);
+      }).then(function (response) {
+        // TODO:添加输出处理
+        logger.info(response.body);
+        return response;
+      }).catch(function (err) {
+        // 执行失败
+        logger.error(err);
+      });
+    }
   }
 }
 

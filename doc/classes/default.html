@@ -100,14 +100,18 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="default.html#__doc" class="tsd-kind-icon">__doc</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="default.html#__getbasepath" class="tsd-kind-icon">__get<wbr>Base<wbr>Path</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="default.html#checkcreated" class="tsd-kind-icon">check<wbr>Created</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="default.html#deletefunction" class="tsd-kind-icon">deletefunction</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="default.html#deletetrigger" class="tsd-kind-icon">deletetrigger</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="default.html#deploy" class="tsd-kind-icon">deploy</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="default.html#getbrnbyfunctionname" class="tsd-kind-icon">get<wbr>Brn<wbr>ByFunction<wbr>Name</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="default.html#handleinputs" class="tsd-kind-icon">handle<wbr>Inputs</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="default.html#listtriggers" class="tsd-kind-icon">listtriggers</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="default.html#readdir" class="tsd-kind-icon">read<wbr>Dir</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="default.html#startzip" class="tsd-kind-icon">start<wbr>Zip</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="default.html#updatecode" class="tsd-kind-icon">updatecode</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="default.html#updateconfig" class="tsd-kind-icon">updateconfig</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="default.html#updatecode" class="tsd-kind-icon">update<wbr>Code</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="default.html#updateconfig" class="tsd-kind-icon">update<wbr>Config</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="default.html#updatetrigger" class="tsd-kind-icon">updatetrigger</a></li>
 							</ul>
 						</section>
 					</div>
@@ -126,7 +130,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides BaseComponent.constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/xinwuyun/cfc/blob/38b204f/src/index.ts#L22">index.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/xinwuyun/cfc/blob/1fff3a5/src/index.ts#L23">index.ts:23</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -149,7 +153,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from BaseComponent.client</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/xinwuyun/cfc/blob/38b204f/src/common/base.ts#L9">common/base.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/xinwuyun/cfc/blob/1fff3a5/src/common/base.ts#L9">common/base.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -175,7 +179,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from BaseComponent.__doc</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/xinwuyun/cfc/blob/38b204f/src/common/base.ts#L34">common/base.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/xinwuyun/cfc/blob/1fff3a5/src/common/base.ts#L34">common/base.ts:34</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -199,10 +203,97 @@
 							<aside class="tsd-sources">
 								<p>Inherited from BaseComponent.__getBasePath</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/xinwuyun/cfc/blob/38b204f/src/common/base.ts#L21">common/base.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/xinwuyun/cfc/blob/1fff3a5/src/common/base.ts#L21">common/base.ts:21</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="checkcreated" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> check<wbr>Created</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">check<wbr>Created<span class="tsd-signature-symbol">(</span>client<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, functionName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">String</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/xinwuyun/cfc/blob/1fff3a5/src/index.ts#L375">index.ts:375</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>检查函数是否已有</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>client: <span class="tsd-signature-type">any</span></h5>
+								</li>
+								<li>
+									<h5>functionName: <span class="tsd-signature-type">String</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="deletefunction" class="tsd-anchor"></a>
+					<h3>deletefunction</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">deletefunction<span class="tsd-signature-symbol">(</span>inputs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">InputProps</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/xinwuyun/cfc/blob/1fff3a5/src/index.ts#L346">index.ts:346</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>删除函数</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>inputs: <span class="tsd-signature-type">InputProps</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="deletetrigger" class="tsd-anchor"></a>
+					<h3>deletetrigger</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">deletetrigger<span class="tsd-signature-symbol">(</span>inputs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">InputProps</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/xinwuyun/cfc/blob/1fff3a5/src/index.ts#L303">index.ts:303</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>删除触发器</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>inputs: <span class="tsd-signature-type">InputProps</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -216,7 +307,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xinwuyun/cfc/blob/38b204f/src/index.ts#L260">index.ts:260</a></li>
+									<li>Defined in <a href="https://github.com/xinwuyun/cfc/blob/1fff3a5/src/index.ts#L392">index.ts:392</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -238,13 +329,13 @@
 					<a name="getbrnbyfunctionname" class="tsd-anchor"></a>
 					<h3>get<wbr>Brn<wbr>ByFunction<wbr>Name</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Brn<wbr>ByFunction<wbr>Name<span class="tsd-signature-symbol">(</span>inputs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">InputProps</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Brn<wbr>ByFunction<wbr>Name<span class="tsd-signature-symbol">(</span>inputs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">InputProps</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xinwuyun/cfc/blob/38b204f/src/index.ts#L29">index.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/xinwuyun/cfc/blob/1fff3a5/src/index.ts#L30">index.ts:30</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -258,7 +349,7 @@
 									<h5>inputs: <span class="tsd-signature-type">InputProps</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -272,12 +363,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xinwuyun/cfc/blob/38b204f/src/index.ts#L99">index.ts:99</a></li>
+									<li>Defined in <a href="https://github.com/xinwuyun/cfc/blob/1fff3a5/src/index.ts#L103">index.ts:103</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>部署函数</p>
+									<p>处理输入</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -300,12 +391,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xinwuyun/cfc/blob/38b204f/src/index.ts#L234">index.ts:234</a></li>
+									<li>Defined in <a href="https://github.com/xinwuyun/cfc/blob/1fff3a5/src/index.ts#L229">index.ts:229</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>部署函数</p>
+									<p>获取触发器列表</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -328,7 +419,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xinwuyun/cfc/blob/38b204f/src/index.ts#L50">index.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/xinwuyun/cfc/blob/1fff3a5/src/index.ts#L54">index.ts:54</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -364,7 +455,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xinwuyun/cfc/blob/38b204f/src/index.ts#L77">index.ts:77</a></li>
+									<li>Defined in <a href="https://github.com/xinwuyun/cfc/blob/1fff3a5/src/index.ts#L81">index.ts:81</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -382,17 +473,17 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
 					<a name="updatecode" class="tsd-anchor"></a>
-					<h3>updatecode</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">updatecode<span class="tsd-signature-symbol">(</span>inputs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">InputProps</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> update<wbr>Code</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">update<wbr>Code<span class="tsd-signature-symbol">(</span>inputs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">InputProps</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xinwuyun/cfc/blob/38b204f/src/index.ts#L156">index.ts:156</a></li>
+									<li>Defined in <a href="https://github.com/xinwuyun/cfc/blob/1fff3a5/src/index.ts#L151">index.ts:151</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -410,22 +501,50 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
 					<a name="updateconfig" class="tsd-anchor"></a>
-					<h3>updateconfig</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">updateconfig<span class="tsd-signature-symbol">(</span>inputs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">InputProps</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> update<wbr>Config</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">update<wbr>Config<span class="tsd-signature-symbol">(</span>inputs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">InputProps</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xinwuyun/cfc/blob/38b204f/src/index.ts#L194">index.ts:194</a></li>
+									<li>Defined in <a href="https://github.com/xinwuyun/cfc/blob/1fff3a5/src/index.ts#L189">index.ts:189</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>更新函数配置</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>inputs: <span class="tsd-signature-type">InputProps</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="updatetrigger" class="tsd-anchor"></a>
+					<h3>updatetrigger</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">updatetrigger<span class="tsd-signature-symbol">(</span>inputs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">InputProps</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/xinwuyun/cfc/blob/1fff3a5/src/index.ts#L258">index.ts:258</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>更新触发器</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -470,6 +589,15 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="default.html#__getbasepath" class="tsd-kind-icon">__get<wbr>Base<wbr>Path</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="default.html#checkcreated" class="tsd-kind-icon">check<wbr>Created</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="default.html#deletefunction" class="tsd-kind-icon">deletefunction</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="default.html#deletetrigger" class="tsd-kind-icon">deletetrigger</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="default.html#deploy" class="tsd-kind-icon">deploy</a>
 							</li>
@@ -488,11 +616,14 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
 								<a href="default.html#startzip" class="tsd-kind-icon">start<wbr>Zip</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="default.html#updatecode" class="tsd-kind-icon">updatecode</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="default.html#updatecode" class="tsd-kind-icon">update<wbr>Code</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="default.html#updateconfig" class="tsd-kind-icon">update<wbr>Config</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="default.html#updateconfig" class="tsd-kind-icon">updateconfig</a>
+								<a href="default.html#updatetrigger" class="tsd-kind-icon">updatetrigger</a>
 							</li>
 						</ul>
 					</li>

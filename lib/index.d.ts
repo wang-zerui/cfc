@@ -19,23 +19,42 @@ export default class ComponentDemo extends BaseComponent {
      */
     protected startZip(codePath: string): Promise<string>;
     /**
-     * 部署函数
+     * 处理输入
      * @param inputs
      * @returns
      */
-    private handleInputs;
+    protected handleInputs(inputs: InputProps): Promise<{
+        config: {
+            endpoint: string;
+            credentials: {
+                ak: any;
+                sk: any;
+            };
+        };
+        body: {
+            Code: {
+                ZipFile: string;
+            };
+            Description: any;
+            FunctionName: any;
+            Runtime: any;
+            MemorySize: any;
+            Handler: any;
+            Timeout: any;
+        };
+    }>;
     /**
      * 更新函数代码
      * @param inputs
      * @returns
     */
-    updatecode(inputs: InputProps): Promise<void>;
+    protected updateCode(inputs: InputProps): Promise<void>;
     /**
      * 更新函数配置
      * @param inputs
      * @returns
     */
-    updateconfig(inputs: InputProps): Promise<void>;
+    protected updateConfig(inputs: InputProps): Promise<void>;
     /**
      * 获取触发器列表
      * @param inputs
@@ -60,6 +79,13 @@ export default class ComponentDemo extends BaseComponent {
      * @returns
      */
     deletefunction(inputs: InputProps): Promise<void>;
+    /**
+     * 检查函数是否已有
+     * @param client
+     * @param functionName
+     * @returns
+     */
+    protected checkCreated(client: any, functionName: String): Promise<any>;
     /**
      * 部署函数
      * @param inputs
