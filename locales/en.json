@@ -21,5 +21,14 @@
 	"Creating Trigger...": "Creating Trigger...",
 	"brn:bce:cfc:bj:eb4fdf97f9b8d875eae5eb1d91a026a1:function:testHelloWorld-5:$LATEST": "brn:bce:cfc:bj:eb4fdf97f9b8d875eae5eb1d91a026a1:function:testHelloWorld-5:$LATEST",
 	"object": "object",
-	"false": false
+	"false": false,
+	"true": true,
+	"请提供RelationId": "请提供RelationId",
+	"Update function code successfully!": "Update function code successfully!",
+	"Update config successfully!": "Update config successfully!",
+	"Updating trigger failure.": "Updating trigger failure.",
+	"brn:bce:cfc:bj:eb4fdf97f9b8d875eae5eb1d91a026a1:function:testHelloWorld-9:$LATEST": "brn:bce:cfc:bj:eb4fdf97f9b8d875eae5eb1d91a026a1:function:testHelloWorld-9:$LATEST",
+	"Update trigger successfully": "Update trigger successfully",
+	"Creating trigger...": "Creating trigger...",
+	"Create trigger successfully!": "Create trigger successfully!"
 }

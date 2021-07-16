@@ -16,7 +16,6 @@ services:
       runtime: nodejs12
       handler: index.handler
       functionName: testHelloWorld-9
-      //functionBrn: brn:bce:cfc:bj:eb4fdf97f9b8d875eae5eb1d91a026a1:function:testHelloWorld-2:$LATEST
       trigger:
         relationId: brn:bce:cfc-http-trigger:bj:eb4fdf97f9b8d875eae5eb1d91a026a1:583d0dfc5cb5970e334be9323d4e48f1/cfc/GET/adfadf
         source: cfc-http-trigger/v1/CFCAPI	

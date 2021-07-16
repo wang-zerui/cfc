@@ -3,14 +3,10 @@ import { InputProps } from './common/entity';
 export default class ComponentDemo extends BaseComponent {
     constructor(props: any);
     /**
-       * 通过函数名获取FunctionBrn
-       */
-    getBrnByFunctionName(inputs: InputProps): Promise<any>;
-    /**
-       * 读取目录及文件
-       * @param obj
-       * @param nowPath
-       */
+     * 读取目录及文件
+     * @param obj
+     * @param nowPath
+     */
     protected readDir(obj: any, nowPath: any, targetDir: any): Promise<void>;
     /**
      * 开始压缩文件
@@ -44,11 +40,19 @@ export default class ComponentDemo extends BaseComponent {
         };
     }>;
     /**
+       * 通过函数名获取FunctionBrn
+       */
+    getBrnByFunctionName(inputs: InputProps): Promise<any>;
+    /**
+       * 获得触发器列表
+       */
+    listtrigger(inputs: InputProps): Promise<void>;
+    /**
      * 更新函数代码
      * @param inputs
      * @returns
     */
-    protected updateCode(inputs: InputProps): Promise<void>;
+    protected updateCode(inputs: InputProps): Promise<any>;
     /**
      * 更新函数配置
      * @param inputs
@@ -60,13 +64,13 @@ export default class ComponentDemo extends BaseComponent {
      * @param inputs
      * @returns
      */
-    listtriggers(inputs: InputProps): Promise<void>;
+    protected checkTriggers(inputs: InputProps, functionBrn: String): Promise<any>;
     /**
      * 更新触发器
      * @param inputs
      * @returns
      */
-    updatetrigger(inputs: InputProps): Promise<void>;
+    protected deployTrigger(inputs: InputProps, functionBrn: String): Promise<void>;
     /**
      * 删除触发器
      * @param inputs

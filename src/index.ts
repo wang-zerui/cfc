@@ -14,7 +14,6 @@ import fs from 'fs'
 import path from 'path'
 import JSZip from 'jszip'
 import get from 'lodash.get';
-// import { type } from 'os';
 let CONFIGS = require('./config')
 let zip = new JSZip();
 let CfcClient = require('@baiducloud/sdk').CfcClient;
@@ -23,6 +22,103 @@ let CfcClient = require('@baiducloud/sdk').CfcClient;
 export default class ComponentDemo extends BaseComponent {
   constructor(props) {
     super(props)
+  }
+
+  /**
+   * 读取目录及文件
+   * @param obj
+   * @param nowPath
+   */
+  protected async readDir(obj, nowPath, targetDir) {
+    try {
+      const pathDir = nowPath.split('/')
+      const _dir = pathDir[pathDir.length - 1]
+      if (_dir.includes('.')) {
+        obj.file(_dir, fs.readFileSync(`${nowPath}`))
+      } else {
+        let files = fs.readdirSync(nowPath)
+        files.forEach((fileName, index) => {
+          let fillPath = nowPath + '/' + fileName
+          let file = fs.statSync(fillPath)
+          if (file.isDirectory()) {
+            let dirlist = zip.folder(path.relative(targetDir, fillPath))
+            this.readDir(dirlist, fillPath, targetDir)
+          } else {
+            obj.file(fileName, fs.readFileSync(fillPath))
+          }
+        })
+      }
+    } catch (e) { }
+  }
+
+  /**
+   * 开始压缩文件
+   * @param codePath
+   * @returns
+   */
+  protected async startZip(codePath: string) {
+    const targetDir = path.resolve(codePath)
+    try {
+      await this.readDir(zip, targetDir, targetDir)
+      const data = await zip.generateAsync({
+        type: 'nodebuffer',
+        compression: 'DEFLATE',
+      })
+      fs.writeFile('hello.zip', data, function (err) {/*...*/ });
+
+
+      return Buffer.from(data).toString('base64')
+
+    } catch (e) {
+      logger.error('File does not exist or file is invalid. please check')
+    }
+  }
+  /**
+   * 处理输入
+   * @param inputs
+   * @returns 
+   */
+  protected async handleInputs(inputs: InputProps) {
+    const credentials = get(inputs, 'credentials');
+    const props = inputs.props;
+    const ZipFile = await this.startZip(props.code.codeUri || './');
+    const protocol = props.protocol || CONFIGS.defaultProtocol;
+    const endpoint = props.endpoint || CONFIGS.defaultEndpoint;
+    let tempInputs = {
+      config: {
+        endpoint: protocol + '://' + endpoint,
+        credentials: {
+          ak: credentials.AccessKeyID,
+          sk: credentials.SecretAccessKey,
+        }
+      },
+      body: {
+        Code: {
+          ZipFile,
+        },
+        Description: props.description || CONFIGS.description,
+        FunctionName: props.functionName || CONFIGS.functionName,
+        Runtime: props.runtime,
+        MemorySize: props.memorySize || CONFIGS.memorySize,
+        Handler: props.handler || CONFIGS.handler(props.runtime),
+        Timeout: props.timeout || CONFIGS.timeout,
+      }
+    }
+    if (props.code.publish) {
+      tempInputs.body.Code['Publish'] = props.code.publish;
+    }
+    if (props.code.dryRun) {
+      tempInputs.body.Code['DryRun'] = props.code.dryRun;
+    }
+    const keys = ['Environment', 'LogType', 'DeadLetterTopic', 'LogBosDir'];
+    for (let i of keys) {
+      let value = get(props, i.toLowerCase());
+      if (value) {
+        tempInputs[i] = value;
+      }
+    }
+    const cfcInputs = tempInputs;
+    return cfcInputs;
   }
   /**
 	 * 通过函数名获取FunctionBrn
@@ -45,110 +141,40 @@ export default class ComponentDemo extends BaseComponent {
       logger.error(err);
     });
     return functionBrn;
-  }  
-  /**
-	 * 读取目录及文件
-	 * @param obj
-	 * @param nowPath
-	 */
-	protected async readDir(obj, nowPath, targetDir) {
-		try {
-			const pathDir = nowPath.split('/')
-			const _dir = pathDir[pathDir.length - 1]
-			if (_dir.includes('.')) {
-				obj.file(_dir, fs.readFileSync(`${nowPath}`))
-			} else {
-				let files = fs.readdirSync(nowPath)
-				files.forEach((fileName, index) => {
-					let fillPath = nowPath + '/' + fileName
-					let file = fs.statSync(fillPath)
-					if (file.isDirectory()) {
-						let dirlist = zip.folder( path.relative(targetDir, fillPath))
-						this.readDir(dirlist, fillPath, targetDir)
-					} else {
-						obj.file(fileName, fs.readFileSync(fillPath))
-					}
-				})
-			}
-		} catch (e) {}
-	}
-
-	/**
-	 * 开始压缩文件
-	 * @param codePath
-	 * @returns
-	 */
-	protected async startZip(codePath: string) {
-		const targetDir = path.resolve(codePath)
-		try {
-			await this.readDir(zip, targetDir, targetDir)
-			const data = await zip.generateAsync({
-				type: 'nodebuffer',
-				compression: 'DEFLATE',
-			})
-			fs.writeFile('hello.zip', data, function(err){/*...*/});
-
-
-			return Buffer.from(data).toString('base64')
-
-		} catch (e) {
-			logger.error('File does not exist or file is invalid. please check')
-		}
-	}
-  /**
-   * 处理输入
-   * @param inputs
-   * @returns 
-   */
-  protected async handleInputs(inputs: InputProps) {
-    const credentials = get(inputs, 'credentials');
-    const props = inputs.props;
-    const ZipFile = await this.startZip(props.code.codeUri || './');
-    const protocol = props.protocol || CONFIGS.defaultProtocol;
-    const endpoint = props.endpoint || CONFIGS.defaultEndpoint;
-    let tempInputs = {
-      config: {
-        endpoint: protocol + '://' + endpoint,
-        credentials: {
-            ak: credentials.AccessKeyID,
-            sk: credentials.SecretAccessKey,
-        }
-      },
-      body:{
-        Code:{
-          ZipFile,
-        },
-        Description: props.description || CONFIGS.description,
-        FunctionName: props.functionName || CONFIGS.functionName,
-        Runtime: props.runtime,
-        MemorySize: props.memorySize || CONFIGS.memorySize,
-        Handler: props.handler || CONFIGS.handler(props.runtime),
-        Timeout: props.timeout || CONFIGS.timeout,
-      }
-    }
-    if(props.code.publish){
-      tempInputs.body.Code['Publish'] = props.code.publish;
-    }
-    if(props.code.dryRun){
-      tempInputs.body.Code['DryRun'] = props.code.dryRun;
-    }
-    const keys = ['Environment', 'LogType', 'DeadLetterTopic', 'LogBosDir'];
-    for(let i of keys){
-      let value = get(props, i.toLowerCase());
-      if(value){
-        tempInputs[i] = value;
-      }
-    }
-    const cfcInputs = tempInputs;
-    return cfcInputs;
   }
-
+  /**
+	 * 获得触发器列表
+	 */
+  public async listtrigger(inputs: InputProps) {
+    const credentials = get(inputs, 'credentials');
+    const config = {
+      credentials: {
+        ak: credentials.AccessKeyID,
+        sk: credentials.SecretAccessKey,
+      }
+    };
+    let client = new CfcClient(config);
+    logger.info(typeof (client));
+    if (inputs.props.functionName || inputs.props.functionBrn) {
+      let FunctionBrn = inputs.props.functionBrn || await this.getBrnByFunctionName(inputs);
+      logger.info(FunctionBrn);
+      client.listRelations({ FunctionBrn }).then(function (response) {
+        logger.info("触发器列表：");
+        logger.info(response.body);
+      }).catch(function (err) {
+        logger.error("获取触发器列表失败");
+        logger.error(err);
+      });
+    } else {
+      logger.error("请提供FunctionName或FunctionBrn");
+    }
+  }
   /**
    * 更新函数代码
    * @param inputs
    * @returns
   */
-  protected async updateCode(inputs: InputProps) {          //TODO:修改参数，不再进行多余处理，使用scfInputs
+  protected async updateCode(inputs: InputProps): Promise<any> {          //TODO:修改参数，不再进行多余处理，使用scfInputs
     const props = inputs.props;
     const functionName = props.functionName;
     const codeUri = props.code.codeUri || CONFIGS.codeUri;
@@ -156,29 +182,32 @@ export default class ComponentDemo extends BaseComponent {
     let body = {
       ZipFile,
     }
-    if(props.code.publish) {
+    if (props.code.publish) {
       body['Publish'] = props.code.publish;
     }
-    if(props.code.dryRun) {
+    if (props.code.dryRun) {
       body['DryRun'] = props.code.dryRun;
     }
     const credentials = get(inputs, 'credentials');
     const config = {
       credentials: {
-          ak: credentials.AccessKeyID,
-          sk: credentials.SecretAccessKey,
+        ak: credentials.AccessKeyID,
+        sk: credentials.SecretAccessKey,
       }
     };
     let client = new CfcClient(config);
-    logger.info('Updating function code...')
-    client.updateFunctionCode(functionName, body).then(function (response) {
-      logger.info('Update successfully!');
+    logger.info('Updating function code...');
+    let functionBrn = "";
+    await client.updateFunctionCode(functionName, body).then(function (response) {
+      logger.info('Update function code successfully!');
       // TODO:处理输出
       logger.info(response);
+      functionBrn = response.body.FunctionBrn;
     }).catch(function (err) {
-      logger.error('更新代码失败');
+      logger.error("Updating function code failure.");
       logger.error(err);
     })
+    return functionBrn;
   }
 
   /**
@@ -188,17 +217,17 @@ export default class ComponentDemo extends BaseComponent {
   */
   protected async updateConfig(inputs: InputProps) {
     const props = inputs.props;
-    const FunctionName =  props.functionName;
-    if(!FunctionName){
+    const FunctionName = props.functionName;
+    if (!FunctionName) {
       logger.error('未填写函数名');
       return;
     }
-    
+
     const keys = ['Description', 'Timeout', 'Handler', 'Runtime', 'Environment'];
     let body = {};
-    for(let i of keys){
+    for (let i of keys) {
       let value = get(props, i.toLowerCase());
-      if(value){
+      if (value) {
         body[i] = value;
       }
     }
@@ -206,27 +235,28 @@ export default class ComponentDemo extends BaseComponent {
     const credentials = get(inputs, 'credentials');
     const config = {
       credentials: {
-          ak: credentials.AccessKeyID,
-          sk: credentials.SecretAccessKey,
+        ak: credentials.AccessKeyID,
+        sk: credentials.SecretAccessKey,
       }
     };
     let client = new CfcClient(config);
     logger.info("Updating function configuration...")
-    client.updateFunctionConfiguration(FunctionName, body).then(function(response){
-      logger.info('Update successfully!');
+    await client.updateFunctionConfiguration(FunctionName, body).then(function (response) {
+      logger.info('Update config successfully!');
       // TODO:结果处理
       logger.info(response);
     }).catch(function (err) {
+      logger.info("Updating config failure.");
       logger.error(err);
     })
   }
-  
+
   /**
    * 获取触发器列表
    * @param inputs
    * @returns
    */
-  public async listtriggers(inputs: InputProps) {
+  protected async checkTriggers(inputs: InputProps, functionBrn: String): Promise<any> {
     const credentials = get(inputs, 'credentials');
     const config = {
       credentials: {
@@ -235,27 +265,22 @@ export default class ComponentDemo extends BaseComponent {
       }
     };
     let client = new CfcClient(config);
-    logger.info(typeof(client));
-    if(inputs.props.functionName  || inputs.props.functionBrn){
-      let FunctionBrn = inputs.props.functionBrn || await this.getBrnByFunctionName(inputs);
-      logger.info(FunctionBrn);
-      client.listRelations({FunctionBrn}).then(function(response){
-        logger.info("触发器列表：");
-        logger.info(response.body);
-      }).catch(function(err){
-        logger.error("获取触发器列表失败");
-        logger.error(err);
-      });
-    }else{
-      logger.error("请提供FunctionName或FunctionBrn");
-    }
+    let FunctionBrn = inputs.props.functionBrn;
+    logger.info(FunctionBrn);
+    client.listRelations({ FunctionBrn }).then(function (response) {
+      logger.info("触发器列表：");
+      logger.info(response.body);
+    }).catch(function (err) {
+      logger.error("获取触发器列表失败");
+      logger.error(err);
+    });
   }
   /**
    * 更新触发器
    * @param inputs
    * @returns
    */
-   public async updatetrigger(inputs: InputProps) {
+  protected async deployTrigger(inputs: InputProps, functionBrn: String) {
     const credentials = get(inputs, 'credentials');
     const props = inputs.props;
     const config = {
@@ -264,35 +289,45 @@ export default class ComponentDemo extends BaseComponent {
         sk: credentials.SecretAccessKey,
       }
     };
-    // const keys = ['relationsId', 'source', 'data'];
+    let client = new CfcClient(config);
+
+    const Target = functionBrn;
     const RelationId = props.trigger.relationId;
     const Source = props.trigger.source;
     const Data = props.trigger.data || {};
-    if(!RelationId){
-      logger.error("请提供RelationId");
+
+    if (!Source) {
+      logger.error("请提供触发器类型");
+    }
+    if (!RelationId) {
+      const body = {
+        Target,
+        Source,
+        Data
+      };
+      logger.info("Creating trigger...");
+      client.createRelation(body).then(function (response) {
+        // TODO:添加输出处理
+        logger.info("Create trigger successfully!");
+        logger.info(response.body);
+        return response;
+      })
       return;
-    }
-    if(!Source){
-      logger.error("请提供Source");
-    }
-    let client = new CfcClient(config);
-    if(inputs.props.functionName || inputs.props.functionBrn){
-      let FunctionBrn = inputs.props.functionBrn || await this.getBrnByFunctionName(inputs);
+    } else {
       let body = {
         RelationId,
-        Target: FunctionBrn,
+        Target,
         Source,
         Data,
       }
       logger.info("Updating trigger");
-      client.updateRelation(body).then(function(response){
-        logger.info("Update successfully");
+      client.updateRelation(body).then(function (response) {
+        logger.info("Update trigger successfully");
         logger.info(response.body);
-      }).catch(function(err){
+      }).catch(function (err) {
+        logger.error("Updating trigger failure.");
         logger.error(err);
       })
-    }else{
-      logger.error("请提供FunctionName或FunctionBrn");
     }
   }
   /**
@@ -300,7 +335,7 @@ export default class ComponentDemo extends BaseComponent {
    * @param inputs
    * @returns
    */
-   public async deletetrigger(inputs: InputProps) {
+  public async deletetrigger(inputs: InputProps) {
     const credentials = get(inputs, 'credentials');
     const props = inputs.props;
     const config = {
@@ -312,29 +347,29 @@ export default class ComponentDemo extends BaseComponent {
     // const keys = ['relationsId', 'source', 'data'];
     const RelationId = props.trigger.relationId;
     const Source = props.trigger.source;
-    if(!RelationId){
+    if (!RelationId) {
       logger.error("请提供RelationId");
       return;
     }
-    if(!Source){
+    if (!Source) {
       logger.error("请提供Source");
     }
     let client = new CfcClient(config);
-    if(inputs.props.functionName || inputs.props.functionBrn){
-      let FunctionBrn = inputs.props.functionBrn || await this.getBrnByFunctionName(inputs);
+    if (inputs.props.functionName || inputs.props.functionBrn) {
+      let FunctionBrn = inputs.props.functionBrn;
       let body = {
         RelationId,
         Target: FunctionBrn,
         Source,
       }
       logger.info("Deletting trigger");
-      client.deleteRelation(body).then(function(response){
+      client.deleteRelation(body).then(function (response) {
         logger.info("Delete trigger successfully");
         logger.info(response.body);
-      }).catch(function(err){
+      }).catch(function (err) {
         logger.error(err);
       })
-    }else{
+    } else {
       logger.error("请提供FunctionName或FunctionBrn");
     }
   }
@@ -343,7 +378,7 @@ export default class ComponentDemo extends BaseComponent {
    * @param inputs
    * @returns
    */
-   public async deletefunction(inputs: InputProps) {
+  public async deletefunction(inputs: InputProps) {
     const credentials = get(inputs, 'credentials');
     const props = inputs.props;
     const config = {
@@ -353,15 +388,15 @@ export default class ComponentDemo extends BaseComponent {
       }
     };
     let client = new CfcClient(config);
-    if(props.functionName){
+    if (props.functionName) {
       logger.info("Deleting function");
-      client.deleteFunction(props.functionName).then(function(response){
+      client.deleteFunction(props.functionName).then(function (response) {
         logger.info("Delete successfully");
         logger.info(response.body);
-      }).catch(function(err){
+      }).catch(function (err) {
         logger.error(err);
       })
-    }else{
+    } else {
       logger.error("请提供FunctionName");
     }
   }
@@ -372,15 +407,15 @@ export default class ComponentDemo extends BaseComponent {
    * @param functionName
    * @returns
    */
-  protected async checkCreated(client, functionName: String): Promise<any>{
+  protected async checkCreated(client, functionName: String): Promise<any> {
     let result = false;
-    await client.listFunctions().then((response)=>{
-      for(let i of response.body.Functions){
-        if(i.FunctionName ===  functionName){
+    await client.listFunctions().then((response) => {
+      for (let i of response.body.Functions) {
+        if (i.FunctionName === functionName) {
           result = true
         }
       }
-    }).catch((err)=>{
+    }).catch((err) => {
       logger.error(err);
     })
     return result;
@@ -397,32 +432,26 @@ export default class ComponentDemo extends BaseComponent {
       'commands': 'deploy',
     });
     let client = new CfcClient(scfInputs.config);
-    
+
     let isCreated = await this.checkCreated(client, scfInputs.body.FunctionName);
     logger.info(isCreated);
-    if(isCreated){                                                                // 更新代码及配置
-      this.updateCode(inputs);
-      this.updateConfig(inputs);
-    }else{                                                                        // 创建函数
+    let _that = this;
+    if (isCreated) {                                                                // 更新代码及配置
+      let functionBrn = await _that.updateCode(inputs);
+      logger.info(functionBrn);
+      await _that.updateConfig(inputs);
+      await _that.deployTrigger(inputs, functionBrn);                                   // 更新触发器
+    } else {                                                                        // 创建函数
       client.createFunction(scfInputs.body).then(function (response) {
-        //创建函数
         logger.info('Creating Funtion...');
-        // TODO:添加输出处理
-        logger.info(response.body);
+        logger.info(response.body);                                               // TODO:添加输出处理
         return response;
       }).then(function (response) {
-        //创建触发器
-        logger.info('Creating Trigger...');
-        let body = {
-          'Target': response.body.FunctionBrn,
-          'Source': inputs.props.trigger.source,
-          'Data': inputs.props.trigger.data,
+        if (inputs.props.trigger) {
+          logger.info('Creating Trigger...');
+          const functionBrn = response.body.FunctionBrn;                          // 从返回值获取
+          _that.deployTrigger(inputs, functionBrn);                               // 部署触发器
         }
-        return client.createRelation(body);
-      }).then(function (response) {
-        // TODO:添加输出处理
-        logger.info(response.body);
-        return response;
       }).catch(function (err) {
         // 执行失败
         logger.error(err);
