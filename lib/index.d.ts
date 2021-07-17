@@ -42,7 +42,7 @@ export default class ComponentDemo extends BaseComponent {
     /**
        * 通过函数名获取FunctionBrn
        */
-    getBrnByFunctionName(inputs: InputProps): Promise<any>;
+    protected getBrnByFunctionName(inputs: InputProps): Promise<any>;
     /**
        * 获得触发器列表
        */

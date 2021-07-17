@@ -4,6 +4,7 @@ const {
   // getCredential,
   // help,
   // commandParse,
+  spinner,
   // loadComponent,
   reportComponent
 } = require('@serverless-devs/core')
@@ -14,6 +15,7 @@ import fs from 'fs'
 import path from 'path'
 import JSZip from 'jszip'
 import get from 'lodash.get';
+// import { V4MAPPED } from 'dns';
 let CONFIGS = require('./config')
 let zip = new JSZip();
 let CfcClient = require('@baiducloud/sdk').CfcClient;
@@ -123,7 +125,7 @@ export default class ComponentDemo extends BaseComponent {
   /**
 	 * 通过函数名获取FunctionBrn
 	 */
-	public async getBrnByFunctionName(inputs:InputProps) {
+	protected async getBrnByFunctionName(inputs:InputProps) {
     const credentials = get(inputs, 'credentials');
     const FunctionName = inputs.props.functionName;
     const config = {
@@ -178,7 +180,9 @@ export default class ComponentDemo extends BaseComponent {
     const props = inputs.props;
     const functionName = props.functionName;
     const codeUri = props.code.codeUri || CONFIGS.codeUri;
+    const vm1 = spinner('File compressing...');
     const ZipFile = await this.startZip(codeUri);
+    vm1.succeed('File compression completed');
     let body = {
       ZipFile,
     }
@@ -196,16 +200,16 @@ export default class ComponentDemo extends BaseComponent {
       }
     };
     let client = new CfcClient(config);
-    logger.info('Updating function code...');
+    const vm2 = spinner('Function deploying...');
     let functionBrn = "";
     await client.updateFunctionCode(functionName, body).then(function (response) {
-      logger.info('Update function code successfully!');
+      vm2.succeed('Function deployed');
       // TODO:处理输出
-      logger.info(response);
+      // logger.info(response);
       functionBrn = response.body.FunctionBrn;
     }).catch(function (err) {
-      logger.error("Updating function code failure.");
-      logger.error(err);
+      vm2.fail('Function deploy failed');
+      // logger.error(err);
     })
     return functionBrn;
   }
@@ -216,10 +220,11 @@ export default class ComponentDemo extends BaseComponent {
    * @returns
   */
   protected async updateConfig(inputs: InputProps) {
+    const vm = spinner('Function configuration updating...');
     const props = inputs.props;
     const FunctionName = props.functionName;
     if (!FunctionName) {
-      logger.error('未填写函数名');
+      vm.fail('执行失败，未填写函数名');
       return;
     }
 
@@ -231,7 +236,7 @@ export default class ComponentDemo extends BaseComponent {
         body[i] = value;
       }
     }
-
+    
     const credentials = get(inputs, 'credentials');
     const config = {
       credentials: {
@@ -240,14 +245,13 @@ export default class ComponentDemo extends BaseComponent {
       }
     };
     let client = new CfcClient(config);
-    logger.info("Updating function configuration...")
     await client.updateFunctionConfiguration(FunctionName, body).then(function (response) {
-      logger.info('Update config successfully!');
+      vm.succeed('Function configuration update completed')
       // TODO:结果处理
-      logger.info(response);
+      // logger.info(response);
     }).catch(function (err) {
-      logger.info("Updating config failure.");
-      logger.error(err);
+      vm.fail('Function configuration update failed')
+      logger.error(err.body);
     })
   }
 
@@ -296,8 +300,9 @@ export default class ComponentDemo extends BaseComponent {
     const Source = props.trigger.source;
     const Data = props.trigger.data || {};
 
-    if (!Source) {
-      logger.error("请提供触发器类型");
+    const vm = spinner('Trigger deploying...');
+    if(!Source) {
+      vm.fail('Please provide the type of the trigger');
     }
     if (!RelationId) {
       const body = {
@@ -305,12 +310,18 @@ export default class ComponentDemo extends BaseComponent {
         Source,
         Data
       };
-      logger.info("Creating trigger...");
-      client.createRelation(body).then(function (response) {
+      await client.createRelation(body).then(function (response) {
         // TODO:添加输出处理
-        logger.info("Create trigger successfully!");
-        logger.info(response.body);
+        vm.succeed('Trigger deployed');
+        // logger.info(response.body);
         return response;
+      }).catch((response)=>{
+        vm.fail('Trigger deploy failed.');
+        if(response.message.Code === 'ResourceConflictException'){
+          logger.error(response.message.Message + ', if you want to update your trigger, please provide relationId');
+        }else{
+          logger.error(response.message.Message);
+        }
       })
       return;
     } else {
@@ -320,12 +331,12 @@ export default class ComponentDemo extends BaseComponent {
         Source,
         Data,
       }
-      logger.info("Updating trigger");
-      client.updateRelation(body).then(function (response) {
-        logger.info("Update trigger successfully");
-        logger.info(response.body);
+      await client.updateRelation(body).then(function (response) {
+        vm.succeed('Trigger deployed');
+        // logger.info(response.body);
       }).catch(function (err) {
-        logger.error("Updating trigger failure.");
+        vm.fail('Trigger deploying failed');
+        // logger.error("Updating trigger failure.");
         logger.error(err);
       })
     }
@@ -420,6 +431,7 @@ export default class ComponentDemo extends BaseComponent {
     })
     return result;
   }
+
   /**
    * 部署函数
    * @param inputs
@@ -432,29 +444,30 @@ export default class ComponentDemo extends BaseComponent {
       'commands': 'deploy',
     });
     let client = new CfcClient(scfInputs.config);
-
     let isCreated = await this.checkCreated(client, scfInputs.body.FunctionName);
-    logger.info(isCreated);
     let _that = this;
     if (isCreated) {                                                                // 更新代码及配置
       let functionBrn = await _that.updateCode(inputs);
-      logger.info(functionBrn);
+      // logger.info(functionBrn);
       await _that.updateConfig(inputs);
       await _that.deployTrigger(inputs, functionBrn);                                   // 更新触发器
     } else {                                                                        // 创建函数
-      client.createFunction(scfInputs.body).then(function (response) {
-        logger.info('Creating Funtion...');
-        logger.info(response.body);                                               // TODO:添加输出处理
+      const vm = spinner('Function deploying...');
+      await client.createFunction(scfInputs.body).then(function (response) {
+        vm.succeed('Function deploy completed');
+        // logger.info(response.body);                                               // TODO:添加输出处理
         return response;
       }).then(function (response) {
         if (inputs.props.trigger) {
-          logger.info('Creating Trigger...');
           const functionBrn = response.body.FunctionBrn;                          // 从返回值获取
           _that.deployTrigger(inputs, functionBrn);                               // 部署触发器
         }
       }).catch(function (err) {
         // 执行失败
-        logger.error(err);
+        vm.fail('Function deploy failed');
+        if(err.message.Code === 'ResourceConflictException'){
+          logger.error(err.message.Message);
+        }
       });
     }
   }

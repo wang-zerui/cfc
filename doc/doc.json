@@ -56,7 +56,7 @@
 					}
 				},
 				{
-					"id": 62,
+					"id": 68,
 					"name": "client",
 					"kind": 1024,
 					"kindString": "Property",
@@ -80,7 +80,7 @@
 					}
 				},
 				{
-					"id": 63,
+					"id": 69,
 					"name": "inputs",
 					"kind": 1024,
 					"kindString": "Property",
@@ -97,7 +97,7 @@
 					}
 				},
 				{
-					"id": 66,
+					"id": 72,
 					"name": "__doc",
 					"kind": 2048,
 					"kindString": "Method",
@@ -111,14 +111,14 @@
 					],
 					"signatures": [
 						{
-							"id": 67,
+							"id": 73,
 							"name": "__doc",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 68,
+									"id": 74,
 									"name": "projectName",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -147,7 +147,7 @@
 					}
 				},
 				{
-					"id": 64,
+					"id": 70,
 					"name": "__getBasePath",
 					"kind": 2048,
 					"kindString": "Method",
@@ -161,7 +161,7 @@
 					],
 					"signatures": [
 						{
-							"id": 65,
+							"id": 71,
 							"name": "__getBasePath",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -182,7 +182,7 @@
 					}
 				},
 				{
-					"id": 55,
+					"id": 61,
 					"name": "checkCreated",
 					"kind": 2048,
 					"kindString": "Method",
@@ -192,13 +192,13 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 344,
+							"line": 410,
 							"character": 30
 						}
 					],
 					"signatures": [
 						{
-							"id": 56,
+							"id": 62,
 							"name": "checkCreated",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -209,7 +209,7 @@
 							},
 							"parameters": [
 								{
-									"id": 57,
+									"id": 63,
 									"name": "client",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -221,7 +221,7 @@
 									}
 								},
 								{
-									"id": 58,
+									"id": 64,
 									"name": "functionName",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -247,7 +247,7 @@
 					]
 				},
 				{
-					"id": 41,
+					"id": 47,
 					"name": "checkTriggers",
 					"kind": 2048,
 					"kindString": "Method",
@@ -257,13 +257,13 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 207,
+							"line": 259,
 							"character": 31
 						}
 					],
 					"signatures": [
 						{
-							"id": 42,
+							"id": 48,
 							"name": "checkTriggers",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -274,7 +274,7 @@
 							},
 							"parameters": [
 								{
-									"id": 43,
+									"id": 49,
 									"name": "inputs",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -286,7 +286,7 @@
 									}
 								},
 								{
-									"id": 44,
+									"id": 50,
 									"name": "functionBrn",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -311,7 +311,7 @@
 					]
 				},
 				{
-					"id": 52,
+					"id": 58,
 					"name": "deletefunction",
 					"kind": 2048,
 					"kindString": "Method",
@@ -321,13 +321,13 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 315,
+							"line": 381,
 							"character": 29
 						}
 					],
 					"signatures": [
 						{
-							"id": 53,
+							"id": 59,
 							"name": "deletefunction",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -338,7 +338,7 @@
 							},
 							"parameters": [
 								{
-									"id": 54,
+									"id": 60,
 									"name": "inputs",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -364,7 +364,7 @@
 					]
 				},
 				{
-					"id": 49,
+					"id": 55,
 					"name": "deletetrigger",
 					"kind": 2048,
 					"kindString": "Method",
@@ -374,13 +374,13 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 272,
-							"character": 29
+							"line": 338,
+							"character": 28
 						}
 					],
 					"signatures": [
 						{
-							"id": 50,
+							"id": 56,
 							"name": "deletetrigger",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -391,7 +391,7 @@
 							},
 							"parameters": [
 								{
-									"id": 51,
+									"id": 57,
 									"name": "inputs",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -417,7 +417,7 @@
 					]
 				},
 				{
-					"id": 59,
+					"id": 65,
 					"name": "deploy",
 					"kind": 2048,
 					"kindString": "Method",
@@ -427,13 +427,13 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 362,
+							"line": 428,
 							"character": 21
 						}
 					],
 					"signatures": [
 						{
-							"id": 60,
+							"id": 66,
 							"name": "deploy",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -444,7 +444,7 @@
 							},
 							"parameters": [
 								{
-									"id": 61,
+									"id": 67,
 									"name": "inputs",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -470,7 +470,7 @@
 					]
 				},
 				{
-					"id": 45,
+					"id": 51,
 					"name": "deployTrigger",
 					"kind": 2048,
 					"kindString": "Method",
@@ -480,13 +480,13 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 231,
+							"line": 283,
 							"character": 31
 						}
 					],
 					"signatures": [
 						{
-							"id": 46,
+							"id": 52,
 							"name": "deployTrigger",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -497,7 +497,7 @@
 							},
 							"parameters": [
 								{
-									"id": 47,
+									"id": 53,
 									"name": "inputs",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -509,7 +509,7 @@
 									}
 								},
 								{
-									"id": 48,
+									"id": 54,
 									"name": "functionBrn",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -526,6 +526,57 @@
 									{
 										"type": "intrinsic",
 										"name": "void"
+									}
+								],
+								"name": "Promise"
+							}
+						}
+					]
+				},
+				{
+					"id": 35,
+					"name": "getBrnByFunctionName",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {
+						"isPublic": true
+					},
+					"sources": [
+						{
+							"fileName": "index.ts",
+							"line": 126,
+							"character": 34
+						}
+					],
+					"signatures": [
+						{
+							"id": 36,
+							"name": "getBrnByFunctionName",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"comment": {
+								"shortText": "通过函数名获取FunctionBrn"
+							},
+							"parameters": [
+								{
+									"id": 37,
+									"name": "inputs",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "reference",
+										"name": "InputProps"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"typeArguments": [
+									{
+										"type": "intrinsic",
+										"name": "any"
 									}
 								],
 								"name": "Promise"
@@ -848,6 +899,57 @@
 					]
 				},
 				{
+					"id": 38,
+					"name": "listtrigger",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {
+						"isPublic": true
+					},
+					"sources": [
+						{
+							"fileName": "index.ts",
+							"line": 148,
+							"character": 26
+						}
+					],
+					"signatures": [
+						{
+							"id": 39,
+							"name": "listtrigger",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"comment": {
+								"shortText": "获得触发器列表"
+							},
+							"parameters": [
+								{
+									"id": 40,
+									"name": "inputs",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "reference",
+										"name": "InputProps"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"typeArguments": [
+									{
+										"type": "intrinsic",
+										"name": "void"
+									}
+								],
+								"name": "Promise"
+							}
+						}
+					]
+				},
+				{
 					"id": 5,
 					"name": "readDir",
 					"kind": 2048,
@@ -859,7 +961,7 @@
 						{
 							"fileName": "index.ts",
 							"line": 32,
-							"character": 24
+							"character": 25
 						}
 					],
 					"signatures": [
@@ -936,7 +1038,7 @@
 						{
 							"fileName": "index.ts",
 							"line": 59,
-							"character": 25
+							"character": 26
 						}
 					],
 					"signatures": [
@@ -978,7 +1080,7 @@
 					]
 				},
 				{
-					"id": 35,
+					"id": 41,
 					"name": "updateCode",
 					"kind": 2048,
 					"kindString": "Method",
@@ -988,13 +1090,13 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 129,
+							"line": 177,
 							"character": 28
 						}
 					],
 					"signatures": [
 						{
-							"id": 36,
+							"id": 42,
 							"name": "updateCode",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -1005,7 +1107,7 @@
 							},
 							"parameters": [
 								{
-									"id": 37,
+									"id": 43,
 									"name": "inputs",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -1022,7 +1124,7 @@
 								"typeArguments": [
 									{
 										"type": "intrinsic",
-										"name": "void"
+										"name": "any"
 									}
 								],
 								"name": "Promise"
@@ -1031,7 +1133,7 @@
 					]
 				},
 				{
-					"id": 38,
+					"id": 44,
 					"name": "updateConfig",
 					"kind": 2048,
 					"kindString": "Method",
@@ -1041,13 +1143,13 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 167,
+							"line": 218,
 							"character": 30
 						}
 					],
 					"signatures": [
 						{
-							"id": 39,
+							"id": 45,
 							"name": "updateConfig",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -1058,7 +1160,7 @@
 							},
 							"parameters": [
 								{
-									"id": 40,
+									"id": 46,
 									"name": "inputs",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -1096,27 +1198,29 @@
 					"title": "Properties",
 					"kind": 1024,
 					"children": [
-						62,
-						63
+						68,
+						69
 					]
 				},
 				{
 					"title": "Methods",
 					"kind": 2048,
 					"children": [
-						66,
-						64,
+						72,
+						70,
+						61,
+						47,
+						58,
 						55,
-						41,
-						52,
-						49,
-						59,
-						45,
+						65,
+						51,
+						35,
 						13,
+						38,
 						5,
 						10,
-						35,
-						38
+						41,
+						44
 					]
 				}
 			],

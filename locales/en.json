@@ -30,5 +30,9 @@
 	"brn:bce:cfc:bj:eb4fdf97f9b8d875eae5eb1d91a026a1:function:testHelloWorld-9:$LATEST": "brn:bce:cfc:bj:eb4fdf97f9b8d875eae5eb1d91a026a1:function:testHelloWorld-9:$LATEST",
 	"Update trigger successfully": "Update trigger successfully",
 	"Creating trigger...": "Creating trigger...",
-	"Create trigger successfully!": "Create trigger successfully!"
+	"Create trigger successfully!": "Create trigger successfully!",
+	"here": "here",
+	"there": "there",
+	"If you want to update your trigger, please provide relationId": "If you want to update your trigger, please provide relationId",
+	"The resource already exists, if you want to update your trigger, please provide relationId": "The resource already exists, if you want to update your trigger, please provide relationId"
 }
