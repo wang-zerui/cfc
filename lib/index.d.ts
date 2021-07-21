@@ -38,6 +38,7 @@ export default class ComponentDemo extends BaseComponent {
             Handler: any;
             Timeout: any;
         };
+        args: string;
     }>;
     /**
        * 通过函数名获取FunctionBrn
@@ -95,5 +96,10 @@ export default class ComponentDemo extends BaseComponent {
      * @param inputs
      * @returns
      */
-    deploy(inputs: InputProps): Promise<void>;
+    deploy(inputs: InputProps): Promise<any>;
+    /**
+     * 帮助
+     * @returns
+     */
+    help(): Promise<void>;
 }

@@ -3,11 +3,12 @@ const {
   // ILogger,
   // getCredential,
   // help,
-  // commandParse,
+  commandParse,
   spinner,
   // loadComponent,
   reportComponent
-} = require('@serverless-devs/core')
+} = require('@serverless-devs/core');
+import * as core from '@serverless-devs/core';
 import BaseComponent from './common/base';
 import logger from './common/logger';
 import { InputProps } from './common/entity';
@@ -15,7 +16,10 @@ import fs from 'fs'
 import path from 'path'
 import JSZip from 'jszip'
 import get from 'lodash.get';
-// import { V4MAPPED } from 'dns';
+import { COMPONENT_HELP_INFO } from './lib/help';
+import * as DEPLOY_HELP from './lib/help/deploy';
+// import { countReset } from 'console';
+
 let CONFIGS = require('./config')
 let zip = new JSZip();
 let CfcClient = require('@baiducloud/sdk').CfcClient;
@@ -104,7 +108,8 @@ export default class ComponentDemo extends BaseComponent {
         MemorySize: props.memorySize || CONFIGS.memorySize,
         Handler: props.handler || CONFIGS.handler(props.runtime),
         Timeout: props.timeout || CONFIGS.timeout,
-      }
+      },
+      args: inputs.args
     }
     if (props.code.publish) {
       tempInputs.body.Code['Publish'] = props.code.publish;
@@ -438,11 +443,31 @@ export default class ComponentDemo extends BaseComponent {
    * @returns
    */
   public async deploy(inputs: InputProps) {
-    //处理输入
     const scfInputs = await this.handleInputs(inputs);
     reportComponent('cfc', {
       'commands': 'deploy',
     });
+    // const args = scfInputs.args;
+    const parsedArgs: {[key:string]: any} = commandParse(inputs, {
+      boolean: ['help'],
+      alias: {help:'h'}
+    })
+
+    const parsedData = parsedArgs?.data || {};
+    const rawData = parsedData._ || [];
+    const commandList = ['all', 'function', 'trigger'];
+
+    const subCommand = rawData[0] || 'all';
+    logger.debug(`deploy sunCommand: $(subCommand)`);
+    if(!commandList.includes(subCommand)){
+      return core.help(DEPLOY_HELP.DEPLOY);
+    }
+
+    if(parsedData.help){
+      rawData[0] ? core.help(DEPLOY_HELP[`DEPLOY_$(subCommand)`.toLocaleUpperCase()]):core.help(DEPLOY_HELP.DEPLOY);
+      return;
+    }
+    
     let client = new CfcClient(scfInputs.config);
     let isCreated = await this.checkCreated(client, scfInputs.body.FunctionName);
     let _that = this;
@@ -463,13 +488,21 @@ export default class ComponentDemo extends BaseComponent {
           _that.deployTrigger(inputs, functionBrn);                               // 部署触发器
         }
       }).catch(function (err) {
-        // 执行失败
         vm.fail('Function deploy failed');
         if(err.message.Code === 'ResourceConflictException'){
           logger.error(err.message.Message);
         }
       });
     }
+  }
+
+  /**
+   * 帮助
+   * @returns
+   */ 
+  public async help(): Promise<void> {
+    await reportComponent('cfc', 'help');
+    core.help(COMPONENT_HELP_INFO);
   }
 }
 

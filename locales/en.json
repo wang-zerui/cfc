@@ -34,5 +34,6 @@
 	"here": "here",
 	"there": "there",
 	"If you want to update your trigger, please provide relationId": "If you want to update your trigger, please provide relationId",
-	"The resource already exists, if you want to update your trigger, please provide relationId": "The resource already exists, if you want to update your trigger, please provide relationId"
+	"The resource already exists, if you want to update your trigger, please provide relationId": "The resource already exists, if you want to update your trigger, please provide relationId",
+	"deploy sunCommand: $(subCommand)": "deploy sunCommand: $(subCommand)"
 }
