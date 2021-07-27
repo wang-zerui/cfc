@@ -90,7 +90,7 @@ export default class Function {
   */
 
   constructor({ endpoint, credentials }: { endpoint: string; credentials: ICredentials }) {
-    Client.setCfcClient(endpoint, credentials);
+    Client.setCfcClient(credentials, endpoint);
   }
 
   async create(props){

@@ -72,7 +72,7 @@ export default class deploy {
     };
   }
   constructor({endpoint, credentials}:{endpoint: string, credentials: ICredentials}){
-    Client.setCfcClient(endpoint, credentials);
+    Client.setCfcClient(credentials, endpoint);
   }
 
   async deployFunction({props, credentials}){
