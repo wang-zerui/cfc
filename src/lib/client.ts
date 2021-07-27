@@ -7,7 +7,10 @@ export default class Client {
   static setCfcClient(endpoint: string, credentials: ICredentials) {
     const cfcClient = new CfcClient({
       endpoint,
-      credentials,
+      credentials:{
+        ak:credentials.AccessKeyID,
+        sk:credentials.SecretAccessKey
+      },
     });
     this.cfcClient = cfcClient;
   }

@@ -13,7 +13,7 @@ services:
         codeUri: ./
         publish: false
         dryRun: true
-      functionName: testHelloWorld-10
+      functionName: TestSubCommandDeployFunction
       description: CFC demo
       handler: index.handler 
       endpoint: cfc.bj.baidubce.com

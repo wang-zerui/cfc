@@ -1,19 +1,20 @@
+//@ts-ignore
 import * as core from '@serverless-devs/core';
 import { ICredentials } from '../interface/profile';
 import Client from '../client';
 import get from 'lodash.get';
 import { startZip, tableShow } from '../utils'
 import logger from '../../common/logger';
-let CONFIGS = require('./config');
+let CONFIGS = require('../config');
 
-
-interface IProps {
+//@ts-ignore
+interface IProps { 
   endpoint: string;
   description?: string;
   functionName?: string;
 }
 
-const FUNCTION_COMMAND: string[] = ['create', 'list', 'info', 'remove', 'updateCode', 'updateConfig', 'getConfig'];
+const FUNCTION_COMMAND: string[] = ['create', 'list', 'info', 'remove', 'updateCode', 'updateConfig', 'getConfig']; 
 const FUNCTION_COMMAND_HELP_KEY = {
   create: 'FunctionCreateInputsArgs',
   list: 'FunctionListInputsArgs',
@@ -130,9 +131,7 @@ export default class Function {
       })
       .catch((err) => {
         vm.fail('Function deploy failed');
-        if (err.message.Code === 'ResourceConflictException') {
-          logger.error(err.message.Message);
-        }
+        logger.error(err.message.Message);
       });
   }
   
@@ -262,41 +261,5 @@ export default class Function {
         logger.error('函数配置获取错误');
         logger.error(err.message.Message);
       })
-  }
-  // async publish({ serviceName, description }: Publish) {
-  //   logger.info(`Creating service version: ${serviceName}`);
-  //   const { data } = await Client.fcClient.publishVersion(serviceName, description);
-  //   logger.debug(`publish version: ${JSON.stringify(data)}`);
-  //   return data;
-  // }
-
-  // async remove() {
-  //   if (!version) {
-  //     throw new Error('Not fount version');
-  //   }
-  //   logger.info(`Removing service version: ${serviceName}.${version}`);
-  //   const res = await Client.cfcClient.deleteVersion(serviceName, version);
-  //   logger.debug(`delete version: ${JSON.stringify(res)}`);
-  // }
-
-  // async removeAll({ serviceName, assumeYes }: RemoveAll) {
-  //   const listData = await this.list({ serviceName });
-  //   if (assumeYes) {
-  //     return await this.forDeleteVersion(serviceName, listData);
-  //   }
-
-  //   if (!_.isEmpty(listData)) {
-  //     tableShow(listData, ['versionId', 'description', 'createdTime', 'lastModifiedTime']);
-  //     const meg = `Version configuration exists under service ${serviceName}, whether to delete all version resources`;
-  //     if (await promptForConfirmOrDetails(meg)) {
-  //       return await this.forDeleteVersion(serviceName, listData);
-  //     }
-  //   }
-  // }
-
-  private async forDeleteVersion(serviceName: string, listData: any[]) {
-    for (const { versionId } of listData) {
-      await this.remove({ serviceName, version: versionId });
-    }
   }
 }

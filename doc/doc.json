@@ -56,7 +56,7 @@
 					}
 				},
 				{
-					"id": 70,
+					"id": 10,
 					"name": "client",
 					"kind": 1024,
 					"kindString": "Property",
@@ -66,8 +66,8 @@
 					"sources": [
 						{
 							"fileName": "common/base.ts",
-							"line": 9,
-							"character": 20
+							"line": 7,
+							"character": 18
 						}
 					],
 					"type": {
@@ -80,7 +80,7 @@
 					}
 				},
 				{
-					"id": 71,
+					"id": 11,
 					"name": "inputs",
 					"kind": 1024,
 					"kindString": "Property",
@@ -97,7 +97,7 @@
 					}
 				},
 				{
-					"id": 74,
+					"id": 14,
 					"name": "__doc",
 					"kind": 2048,
 					"kindString": "Method",
@@ -105,20 +105,20 @@
 					"sources": [
 						{
 							"fileName": "common/base.ts",
-							"line": 34,
-							"character": 9
+							"line": 32,
+							"character": 7
 						}
 					],
 					"signatures": [
 						{
-							"id": 75,
+							"id": 15,
 							"name": "__doc",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 76,
+									"id": 16,
 									"name": "projectName",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -147,7 +147,7 @@
 					}
 				},
 				{
-					"id": 72,
+					"id": 12,
 					"name": "__getBasePath",
 					"kind": 2048,
 					"kindString": "Method",
@@ -155,13 +155,13 @@
 					"sources": [
 						{
 							"fileName": "common/base.ts",
-							"line": 21,
-							"character": 17
+							"line": 19,
+							"character": 15
 						}
 					],
 					"signatures": [
 						{
-							"id": 73,
+							"id": 13,
 							"name": "__getBasePath",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -182,242 +182,7 @@
 					}
 				},
 				{
-					"id": 61,
-					"name": "checkCreated",
-					"kind": 2048,
-					"kindString": "Method",
-					"flags": {
-						"isProtected": true
-					},
-					"sources": [
-						{
-							"fileName": "index.ts",
-							"line": 424,
-							"character": 30
-						}
-					],
-					"signatures": [
-						{
-							"id": 62,
-							"name": "checkCreated",
-							"kind": 4096,
-							"kindString": "Call signature",
-							"flags": {},
-							"comment": {
-								"shortText": "检查函数是否已有",
-								"returns": "\n"
-							},
-							"parameters": [
-								{
-									"id": 63,
-									"name": "client",
-									"kind": 32768,
-									"kindString": "Parameter",
-									"flags": {},
-									"comment": {},
-									"type": {
-										"type": "intrinsic",
-										"name": "any"
-									}
-								},
-								{
-									"id": 64,
-									"name": "functionName",
-									"kind": 32768,
-									"kindString": "Parameter",
-									"flags": {},
-									"comment": {},
-									"type": {
-										"type": "reference",
-										"name": "String"
-									}
-								}
-							],
-							"type": {
-								"type": "reference",
-								"typeArguments": [
-									{
-										"type": "intrinsic",
-										"name": "any"
-									}
-								],
-								"name": "Promise"
-							}
-						}
-					]
-				},
-				{
-					"id": 47,
-					"name": "checkTriggers",
-					"kind": 2048,
-					"kindString": "Method",
-					"flags": {
-						"isProtected": true
-					},
-					"sources": [
-						{
-							"fileName": "index.ts",
-							"line": 266,
-							"character": 31
-						}
-					],
-					"signatures": [
-						{
-							"id": 48,
-							"name": "checkTriggers",
-							"kind": 4096,
-							"kindString": "Call signature",
-							"flags": {},
-							"comment": {
-								"shortText": "获取触发器列表",
-								"returns": "\n"
-							},
-							"parameters": [
-								{
-									"id": 49,
-									"name": "inputs",
-									"kind": 32768,
-									"kindString": "Parameter",
-									"flags": {},
-									"comment": {},
-									"type": {
-										"type": "reference",
-										"name": "InputProps"
-									}
-								},
-								{
-									"id": 50,
-									"name": "functionBrn",
-									"kind": 32768,
-									"kindString": "Parameter",
-									"flags": {},
-									"type": {
-										"type": "reference",
-										"name": "String"
-									}
-								}
-							],
-							"type": {
-								"type": "reference",
-								"typeArguments": [
-									{
-										"type": "intrinsic",
-										"name": "any"
-									}
-								],
-								"name": "Promise"
-							}
-						}
-					]
-				},
-				{
-					"id": 58,
-					"name": "deletefunction",
-					"kind": 2048,
-					"kindString": "Method",
-					"flags": {
-						"isPublic": true
-					},
-					"sources": [
-						{
-							"fileName": "index.ts",
-							"line": 395,
-							"character": 29
-						}
-					],
-					"signatures": [
-						{
-							"id": 59,
-							"name": "deletefunction",
-							"kind": 4096,
-							"kindString": "Call signature",
-							"flags": {},
-							"comment": {
-								"shortText": "删除函数",
-								"returns": "\n"
-							},
-							"parameters": [
-								{
-									"id": 60,
-									"name": "inputs",
-									"kind": 32768,
-									"kindString": "Parameter",
-									"flags": {},
-									"comment": {},
-									"type": {
-										"type": "reference",
-										"name": "InputProps"
-									}
-								}
-							],
-							"type": {
-								"type": "reference",
-								"typeArguments": [
-									{
-										"type": "intrinsic",
-										"name": "void"
-									}
-								],
-								"name": "Promise"
-							}
-						}
-					]
-				},
-				{
-					"id": 55,
-					"name": "deletetrigger",
-					"kind": 2048,
-					"kindString": "Method",
-					"flags": {
-						"isPublic": true
-					},
-					"sources": [
-						{
-							"fileName": "index.ts",
-							"line": 352,
-							"character": 28
-						}
-					],
-					"signatures": [
-						{
-							"id": 56,
-							"name": "deletetrigger",
-							"kind": 4096,
-							"kindString": "Call signature",
-							"flags": {},
-							"comment": {
-								"shortText": "删除触发器",
-								"returns": "\n"
-							},
-							"parameters": [
-								{
-									"id": 57,
-									"name": "inputs",
-									"kind": 32768,
-									"kindString": "Parameter",
-									"flags": {},
-									"comment": {},
-									"type": {
-										"type": "reference",
-										"name": "InputProps"
-									}
-								}
-							],
-							"type": {
-								"type": "reference",
-								"typeArguments": [
-									{
-										"type": "intrinsic",
-										"name": "void"
-									}
-								],
-								"name": "Promise"
-							}
-						}
-					]
-				},
-				{
-					"id": 65,
+					"id": 5,
 					"name": "deploy",
 					"kind": 2048,
 					"kindString": "Method",
@@ -427,13 +192,13 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 443,
+							"line": 31,
 							"character": 21
 						}
 					],
 					"signatures": [
 						{
-							"id": 66,
+							"id": 6,
 							"name": "deploy",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -444,127 +209,12 @@
 							},
 							"parameters": [
 								{
-									"id": 67,
+									"id": 7,
 									"name": "inputs",
 									"kind": 32768,
 									"kindString": "Parameter",
 									"flags": {},
 									"comment": {},
-									"type": {
-										"type": "reference",
-										"name": "InputProps"
-									}
-								}
-							],
-							"type": {
-								"type": "reference",
-								"typeArguments": [
-									{
-										"type": "intrinsic",
-										"name": "void"
-									}
-								],
-								"name": "Promise"
-							}
-						}
-					]
-				},
-				{
-					"id": 51,
-					"name": "deployTrigger",
-					"kind": 2048,
-					"kindString": "Method",
-					"flags": {
-						"isProtected": true
-					},
-					"sources": [
-						{
-							"fileName": "index.ts",
-							"line": 290,
-							"character": 31
-						}
-					],
-					"signatures": [
-						{
-							"id": 52,
-							"name": "deployTrigger",
-							"kind": 4096,
-							"kindString": "Call signature",
-							"flags": {},
-							"comment": {
-								"shortText": "更新触发器",
-								"returns": "\n"
-							},
-							"parameters": [
-								{
-									"id": 53,
-									"name": "inputs",
-									"kind": 32768,
-									"kindString": "Parameter",
-									"flags": {},
-									"comment": {},
-									"type": {
-										"type": "reference",
-										"name": "InputProps"
-									}
-								},
-								{
-									"id": 54,
-									"name": "functionBrn",
-									"kind": 32768,
-									"kindString": "Parameter",
-									"flags": {},
-									"type": {
-										"type": "reference",
-										"name": "String"
-									}
-								}
-							],
-							"type": {
-								"type": "reference",
-								"typeArguments": [
-									{
-										"type": "intrinsic",
-										"name": "void"
-									}
-								],
-								"name": "Promise"
-							}
-						}
-					]
-				},
-				{
-					"id": 35,
-					"name": "getBrnByFunctionName",
-					"kind": 2048,
-					"kindString": "Method",
-					"flags": {
-						"isProtected": true
-					},
-					"sources": [
-						{
-							"fileName": "index.ts",
-							"line": 131,
-							"character": 37
-						}
-					],
-					"signatures": [
-						{
-							"id": 36,
-							"name": "getBrnByFunctionName",
-							"kind": 4096,
-							"kindString": "Call signature",
-							"flags": {},
-							"comment": {
-								"shortText": "通过函数名获取FunctionBrn"
-							},
-							"parameters": [
-								{
-									"id": 37,
-									"name": "inputs",
-									"kind": 32768,
-									"kindString": "Parameter",
-									"flags": {},
 									"type": {
 										"type": "reference",
 										"name": "InputProps"
@@ -585,321 +235,7 @@
 					]
 				},
 				{
-					"id": 13,
-					"name": "handleInputs",
-					"kind": 2048,
-					"kindString": "Method",
-					"flags": {
-						"isProtected": true
-					},
-					"sources": [
-						{
-							"fileName": "index.ts",
-							"line": 86,
-							"character": 30
-						}
-					],
-					"signatures": [
-						{
-							"id": 14,
-							"name": "handleInputs",
-							"kind": 4096,
-							"kindString": "Call signature",
-							"flags": {},
-							"comment": {
-								"shortText": "处理输入",
-								"returns": "\n"
-							},
-							"parameters": [
-								{
-									"id": 15,
-									"name": "inputs",
-									"kind": 32768,
-									"kindString": "Parameter",
-									"flags": {},
-									"comment": {},
-									"type": {
-										"type": "reference",
-										"name": "InputProps"
-									}
-								}
-							],
-							"type": {
-								"type": "reference",
-								"typeArguments": [
-									{
-										"type": "reflection",
-										"declaration": {
-											"id": 16,
-											"name": "__type",
-											"kind": 65536,
-											"kindString": "Type literal",
-											"flags": {},
-											"children": [
-												{
-													"id": 24,
-													"name": "body",
-													"kind": 1024,
-													"kindString": "Property",
-													"flags": {},
-													"type": {
-														"type": "reflection",
-														"declaration": {
-															"id": 25,
-															"name": "__type",
-															"kind": 65536,
-															"kindString": "Type literal",
-															"flags": {},
-															"children": [
-																{
-																	"id": 26,
-																	"name": "Code",
-																	"kind": 1024,
-																	"kindString": "Property",
-																	"flags": {},
-																	"type": {
-																		"type": "reflection",
-																		"declaration": {
-																			"id": 27,
-																			"name": "__type",
-																			"kind": 65536,
-																			"kindString": "Type literal",
-																			"flags": {},
-																			"children": [
-																				{
-																					"id": 28,
-																					"name": "ZipFile",
-																					"kind": 1024,
-																					"kindString": "Property",
-																					"flags": {},
-																					"type": {
-																						"type": "intrinsic",
-																						"name": "string"
-																					}
-																				}
-																			],
-																			"groups": [
-																				{
-																					"title": "Properties",
-																					"kind": 1024,
-																					"children": [
-																						28
-																					]
-																				}
-																			]
-																		}
-																	},
-																	"defaultValue": "..."
-																},
-																{
-																	"id": 29,
-																	"name": "Description",
-																	"kind": 1024,
-																	"kindString": "Property",
-																	"flags": {},
-																	"type": {
-																		"type": "intrinsic",
-																		"name": "any"
-																	},
-																	"defaultValue": "..."
-																},
-																{
-																	"id": 30,
-																	"name": "FunctionName",
-																	"kind": 1024,
-																	"kindString": "Property",
-																	"flags": {},
-																	"type": {
-																		"type": "intrinsic",
-																		"name": "any"
-																	},
-																	"defaultValue": "..."
-																},
-																{
-																	"id": 33,
-																	"name": "Handler",
-																	"kind": 1024,
-																	"kindString": "Property",
-																	"flags": {},
-																	"type": {
-																		"type": "intrinsic",
-																		"name": "any"
-																	},
-																	"defaultValue": "..."
-																},
-																{
-																	"id": 32,
-																	"name": "MemorySize",
-																	"kind": 1024,
-																	"kindString": "Property",
-																	"flags": {},
-																	"type": {
-																		"type": "intrinsic",
-																		"name": "any"
-																	},
-																	"defaultValue": "..."
-																},
-																{
-																	"id": 31,
-																	"name": "Runtime",
-																	"kind": 1024,
-																	"kindString": "Property",
-																	"flags": {},
-																	"type": {
-																		"type": "intrinsic",
-																		"name": "any"
-																	},
-																	"defaultValue": "..."
-																},
-																{
-																	"id": 34,
-																	"name": "Timeout",
-																	"kind": 1024,
-																	"kindString": "Property",
-																	"flags": {},
-																	"type": {
-																		"type": "intrinsic",
-																		"name": "any"
-																	},
-																	"defaultValue": "..."
-																}
-															],
-															"groups": [
-																{
-																	"title": "Properties",
-																	"kind": 1024,
-																	"children": [
-																		26,
-																		29,
-																		30,
-																		33,
-																		32,
-																		31,
-																		34
-																	]
-																}
-															]
-														}
-													},
-													"defaultValue": "..."
-												},
-												{
-													"id": 17,
-													"name": "config",
-													"kind": 1024,
-													"kindString": "Property",
-													"flags": {},
-													"type": {
-														"type": "reflection",
-														"declaration": {
-															"id": 18,
-															"name": "__type",
-															"kind": 65536,
-															"kindString": "Type literal",
-															"flags": {},
-															"children": [
-																{
-																	"id": 20,
-																	"name": "credentials",
-																	"kind": 1024,
-																	"kindString": "Property",
-																	"flags": {},
-																	"type": {
-																		"type": "reflection",
-																		"declaration": {
-																			"id": 21,
-																			"name": "__type",
-																			"kind": 65536,
-																			"kindString": "Type literal",
-																			"flags": {},
-																			"children": [
-																				{
-																					"id": 22,
-																					"name": "ak",
-																					"kind": 1024,
-																					"kindString": "Property",
-																					"flags": {},
-																					"type": {
-																						"type": "intrinsic",
-																						"name": "any"
-																					},
-																					"defaultValue": "..."
-																				},
-																				{
-																					"id": 23,
-																					"name": "sk",
-																					"kind": 1024,
-																					"kindString": "Property",
-																					"flags": {},
-																					"type": {
-																						"type": "intrinsic",
-																						"name": "any"
-																					},
-																					"defaultValue": "..."
-																				}
-																			],
-																			"groups": [
-																				{
-																					"title": "Properties",
-																					"kind": 1024,
-																					"children": [
-																						22,
-																						23
-																					]
-																				}
-																			]
-																		}
-																	},
-																	"defaultValue": "..."
-																},
-																{
-																	"id": 19,
-																	"name": "endpoint",
-																	"kind": 1024,
-																	"kindString": "Property",
-																	"flags": {},
-																	"type": {
-																		"type": "intrinsic",
-																		"name": "string"
-																	},
-																	"defaultValue": "..."
-																}
-															],
-															"groups": [
-																{
-																	"title": "Properties",
-																	"kind": 1024,
-																	"children": [
-																		20,
-																		19
-																	]
-																}
-															]
-														}
-													},
-													"defaultValue": "..."
-												}
-											],
-											"groups": [
-												{
-													"title": "Properties",
-													"kind": 1024,
-													"children": [
-														24,
-														17
-													]
-												}
-											]
-										}
-									}
-								],
-								"name": "Promise"
-							}
-						}
-					]
-				},
-				{
-					"id": 68,
+					"id": 8,
 					"name": "help",
 					"kind": 2048,
 					"kindString": "Method",
@@ -909,13 +245,13 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 481,
+							"line": 56,
 							"character": 19
 						}
 					],
 					"signatures": [
 						{
-							"id": 69,
+							"id": 9,
 							"name": "help",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -924,293 +260,6 @@
 								"shortText": "帮助",
 								"returns": "\n"
 							},
-							"type": {
-								"type": "reference",
-								"typeArguments": [
-									{
-										"type": "intrinsic",
-										"name": "void"
-									}
-								],
-								"name": "Promise"
-							}
-						}
-					]
-				},
-				{
-					"id": 38,
-					"name": "listtrigger",
-					"kind": 2048,
-					"kindString": "Method",
-					"flags": {
-						"isPublic": true
-					},
-					"sources": [
-						{
-							"fileName": "index.ts",
-							"line": 153,
-							"character": 26
-						}
-					],
-					"signatures": [
-						{
-							"id": 39,
-							"name": "listtrigger",
-							"kind": 4096,
-							"kindString": "Call signature",
-							"flags": {},
-							"comment": {
-								"shortText": "获得触发器列表"
-							},
-							"parameters": [
-								{
-									"id": 40,
-									"name": "inputs",
-									"kind": 32768,
-									"kindString": "Parameter",
-									"flags": {},
-									"type": {
-										"type": "reference",
-										"name": "InputProps"
-									}
-								}
-							],
-							"type": {
-								"type": "reference",
-								"typeArguments": [
-									{
-										"type": "intrinsic",
-										"name": "void"
-									}
-								],
-								"name": "Promise"
-							}
-						}
-					]
-				},
-				{
-					"id": 5,
-					"name": "readDir",
-					"kind": 2048,
-					"kindString": "Method",
-					"flags": {
-						"isProtected": true
-					},
-					"sources": [
-						{
-							"fileName": "index.ts",
-							"line": 37,
-							"character": 25
-						}
-					],
-					"signatures": [
-						{
-							"id": 6,
-							"name": "readDir",
-							"kind": 4096,
-							"kindString": "Call signature",
-							"flags": {},
-							"comment": {
-								"shortText": "读取目录及文件"
-							},
-							"parameters": [
-								{
-									"id": 7,
-									"name": "obj",
-									"kind": 32768,
-									"kindString": "Parameter",
-									"flags": {},
-									"comment": {},
-									"type": {
-										"type": "intrinsic",
-										"name": "any"
-									}
-								},
-								{
-									"id": 8,
-									"name": "nowPath",
-									"kind": 32768,
-									"kindString": "Parameter",
-									"flags": {},
-									"comment": {
-										"text": "\n"
-									},
-									"type": {
-										"type": "intrinsic",
-										"name": "any"
-									}
-								},
-								{
-									"id": 9,
-									"name": "targetDir",
-									"kind": 32768,
-									"kindString": "Parameter",
-									"flags": {},
-									"type": {
-										"type": "intrinsic",
-										"name": "any"
-									}
-								}
-							],
-							"type": {
-								"type": "reference",
-								"typeArguments": [
-									{
-										"type": "intrinsic",
-										"name": "void"
-									}
-								],
-								"name": "Promise"
-							}
-						}
-					]
-				},
-				{
-					"id": 10,
-					"name": "startZip",
-					"kind": 2048,
-					"kindString": "Method",
-					"flags": {
-						"isProtected": true
-					},
-					"sources": [
-						{
-							"fileName": "index.ts",
-							"line": 64,
-							"character": 26
-						}
-					],
-					"signatures": [
-						{
-							"id": 11,
-							"name": "startZip",
-							"kind": 4096,
-							"kindString": "Call signature",
-							"flags": {},
-							"comment": {
-								"shortText": "开始压缩文件",
-								"returns": "\n"
-							},
-							"parameters": [
-								{
-									"id": 12,
-									"name": "codePath",
-									"kind": 32768,
-									"kindString": "Parameter",
-									"flags": {},
-									"comment": {},
-									"type": {
-										"type": "intrinsic",
-										"name": "string"
-									}
-								}
-							],
-							"type": {
-								"type": "reference",
-								"typeArguments": [
-									{
-										"type": "intrinsic",
-										"name": "string"
-									}
-								],
-								"name": "Promise"
-							}
-						}
-					]
-				},
-				{
-					"id": 41,
-					"name": "updateCode",
-					"kind": 2048,
-					"kindString": "Method",
-					"flags": {
-						"isProtected": true
-					},
-					"sources": [
-						{
-							"fileName": "index.ts",
-							"line": 182,
-							"character": 28
-						}
-					],
-					"signatures": [
-						{
-							"id": 42,
-							"name": "updateCode",
-							"kind": 4096,
-							"kindString": "Call signature",
-							"flags": {},
-							"comment": {
-								"shortText": "更新函数代码",
-								"returns": "\n"
-							},
-							"parameters": [
-								{
-									"id": 43,
-									"name": "inputs",
-									"kind": 32768,
-									"kindString": "Parameter",
-									"flags": {},
-									"comment": {},
-									"type": {
-										"type": "reference",
-										"name": "InputProps"
-									}
-								}
-							],
-							"type": {
-								"type": "reference",
-								"typeArguments": [
-									{
-										"type": "intrinsic",
-										"name": "any"
-									}
-								],
-								"name": "Promise"
-							}
-						}
-					]
-				},
-				{
-					"id": 44,
-					"name": "updateConfig",
-					"kind": 2048,
-					"kindString": "Method",
-					"flags": {
-						"isProtected": true
-					},
-					"sources": [
-						{
-							"fileName": "index.ts",
-							"line": 225,
-							"character": 30
-						}
-					],
-					"signatures": [
-						{
-							"id": 45,
-							"name": "updateConfig",
-							"kind": 4096,
-							"kindString": "Call signature",
-							"flags": {},
-							"comment": {
-								"shortText": "更新函数配置",
-								"returns": "\n"
-							},
-							"parameters": [
-								{
-									"id": 46,
-									"name": "inputs",
-									"kind": 32768,
-									"kindString": "Parameter",
-									"flags": {},
-									"comment": {},
-									"type": {
-										"type": "reference",
-										"name": "InputProps"
-									}
-								}
-							],
 							"type": {
 								"type": "reference",
 								"typeArguments": [
@@ -1237,37 +286,25 @@
 					"title": "Properties",
 					"kind": 1024,
 					"children": [
-						70,
-						71
+						10,
+						11
 					]
 				},
 				{
 					"title": "Methods",
 					"kind": 2048,
 					"children": [
-						74,
-						72,
-						61,
-						47,
-						58,
-						55,
-						65,
-						51,
-						35,
-						13,
-						68,
-						38,
+						14,
+						12,
 						5,
-						10,
-						41,
-						44
+						8
 					]
 				}
 			],
 			"sources": [
 				{
 					"fileName": "index.ts",
-					"line": 27,
+					"line": 22,
 					"character": 34
 				}
 			],

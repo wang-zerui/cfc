@@ -1,6 +1,6 @@
 export interface ICredentials {
-  ak: string;
-  sk: string;
+  AccessKeyID: string;
+  SecretAccessKey: string;
 }
 
 export interface ServerlessProfile {
