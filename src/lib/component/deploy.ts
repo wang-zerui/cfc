@@ -3,7 +3,8 @@ import Client from '../client';
 import * as core from '@serverless-devs/core';
 import logger from '../../common/logger';
 import * as HELP from '../help/deploy';
-import Function from './function'
+import Function from './function';
+import Trigger from './trigger';
 let CONFIGS = require('../config');
 
 const COMMAND: string[] = [
@@ -80,12 +81,87 @@ export default class deploy {
     const postEndpoint = props.endpoint || CONFIGS.defaultEndpoint;
     const endpoint = protocol + '://' + postEndpoint;
     const functionClient = new Function({endpoint, credentials});
-    return await functionClient.create(props);
+
+    const functions = await functionClient.list();
+    let isCreated = false;
+
+    for (let i = 0; i < 3; i++) {
+      if (functions[i].FunctionName === props.functionName) {
+        isCreated = true;
+        break;
+      }
+    }
+    if(isCreated){
+      await functionClient.updateConfig(props);
+      return await functionClient.updateCode(props);
+    }else{
+      return await functionClient.create(props);
+    }
+    
+  }
+
+  async deployTrigger(functionBrn: string, props, credentials: ICredentials){
+    const target = functionBrn;
+    const data = props.trigger.data;
+    const source = props.trigger.source;
+    const relationId = props.trigger.RelationId;
+    const IProps = {
+      target,
+      data,
+      source,
+      relationId
+    }
+    const triggerClient = new Trigger(credentials);
+    const vm = core.spinner('Trigger deploying...')
+    const {
+      response,
+      error
+    } = await triggerClient.create(IProps);
+    if(error){
+      if(error.message.Code === 'ResourceConflictException'){
+        if(relationId){
+          const updateRes =  await triggerClient.update(IProps);
+          if(updateRes.fail){
+            vm.fail('Trigger deploy failed');
+            logger.error(error.message.Message);
+          }else{
+            vm.succeed('Trigger deployed');
+          }
+        }else{
+          vm.fail('Trigger deploy failed');
+          throw new Error('Provide a relationId if you want to update the trigger. Or modefy the configuration of the trigger.')
+        }
+      }else{
+        vm.fail('Trigger deploy failed');
+        logger.error(error.message.Message);
+        return error;
+      }
+    }else{
+      vm.succeed('New trigger deployed');
+      return response;
+    }
+  }
+
+  async getBrn(props, credentials){
+    const protocol = props.protocol || CONFIGS.defaultProtocol;
+    const postEndpoint = props.endpoint || CONFIGS.defaultEndpoint;
+    const endpoint = protocol + '://' + postEndpoint;
+    const functionClient = new Function({endpoint, credentials});
+    return await functionClient.getBrnByFunctionName(props.functionName);
   }
 
   async deploy(props, subCommand, credentials, inputs){
+    if(subCommand === 'all') {
+      const deployFunctionRes =  await this.deployFunction({props, credentials});
+      const functionBrn = await deployFunctionRes;
+      await this.deployTrigger(functionBrn, props, credentials);
+    }
     if(subCommand === 'function'){
       return await this.deployFunction({props, credentials});
+    }
+    if(subCommand === 'trigger'){
+      const functionBrn = props.functionBrn || await this.getBrn(props, credentials);
+      await this.deployTrigger(functionBrn, props, credentials);
     }
     if(subCommand === 'help'){
       core.help(HELP.DEPLOY);

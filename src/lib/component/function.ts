@@ -14,16 +14,16 @@ interface IProps {
   functionName?: string;
 }
 
-const FUNCTION_COMMAND: string[] = ['create', 'list', 'info', 'remove', 'updateCode', 'updateConfig', 'getConfig']; 
-const FUNCTION_COMMAND_HELP_KEY = {
-  create: 'FunctionCreateInputsArgs',
-  list: 'FunctionListInputsArgs',
-  info: 'FunctionInfoInputsArgs',
-  remove: 'FunctionDeleteInputsArgs',
-  updateCode: 'UpdateCodeInputsArgs',
-  updateConfig: 'UpdateCofigInputsArgs',
-  getConfig: 'GetConfigInputsArgs',
-};
+// const FUNCTION_COMMAND: string[] = ['create', 'list', 'info', 'remove', 'updateCode', 'updateConfig', 'getConfig']; 
+// const FUNCTION_COMMAND_HELP_KEY = {
+//   create: 'FunctionCreateInputsArgs',
+//   list: 'FunctionListInputsArgs',
+//   info: 'FunctionInfoInputsArgs',
+//   remove: 'FunctionDeleteInputsArgs',
+//   updateCode: 'UpdateCodeInputsArgs',
+//   updateConfig: 'UpdateCofigInputsArgs',
+//   getConfig: 'GetConfigInputsArgs',
+// };
 
 export default class Function {
   /*
@@ -219,18 +219,23 @@ export default class Function {
       })
   }
 
-  async list(table?: boolean) {
-    logger.info(`Getting listFunctions`);
-    const data = await Client.cfcClient.listFunctions;
+  async list(table?: boolean): Promise<any> {
+    const data = await Client.cfcClient.listFunctions()
+      .then((response) => {
+        return response.body.Functions;
+      })
+      .catch((err) => {
+        return err.message.Message;
+      });
     if (table) {
       tableShow(data, ['FunctionName', 'Description', 'UpdatedAt', 'LastModified', 'Region']);
+      return data;
     } else {
       return data;
     }
   }
 
-  async remove(props){
-    const FunctionName = props.functionName;
+  async remove(FunctionName){
     if(!FunctionName){
       throw new Error('Not found functionName');
     }
@@ -242,6 +247,7 @@ export default class Function {
         return response;
       })
       .catch((err) => {
+        vm.fail('Function delete failed.')
         logger.error('函数删除错误');
         logger.error(err.message.Message);
       })
@@ -261,5 +267,20 @@ export default class Function {
         logger.error('函数配置获取错误');
         logger.error(err.message.Message);
       })
+  }
+
+  async getBrnByFunctionName(functionName) {
+    const FunctionName = functionName;
+    
+    let functionBrn = await Client.cfcClient
+      .getFunction(FunctionName)
+      .then(function (response) {
+        return response.body.Configuration.FunctionBrn;
+      })
+      .catch(function (err) {
+        logger.error('获取brn错误');
+        logger.error(err);
+      });
+    return functionBrn;
   }
 }

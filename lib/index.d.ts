@@ -3,11 +3,17 @@ import { InputProps } from './common/entity';
 export default class ComponentDemo extends BaseComponent {
     constructor(props: any);
     /**
-     * 部署函数
+     * 部署
      * @param inputs
      * @returns
      */
     deploy(inputs: InputProps): Promise<any>;
+    /**
+     * 移除
+     * @param inputs
+     * @returns
+     */
+    remove(inputs: InputProps): Promise<any>;
     /**
      * 帮助
      * @returns

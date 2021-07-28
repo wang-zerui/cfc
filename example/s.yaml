@@ -25,7 +25,7 @@ services:
         # relationId: brn:bce:cfc-http-trigger:bj:eb4fdf97f9b8d875eae5eb1d91a026a1:583d0dfc5cb5970e334be9323d4e48f1/cfc/GET/hello9
         source: cfc-http-trigger/v1/CFCAPI	
         data: 
-          ResourcePath: /hello9-2
+          ResourcePath: /hello9-5
           Method: GET
           AuthType: anonymous
       environment:

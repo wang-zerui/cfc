@@ -1,5 +1,5 @@
 import { ICredentials } from '../interface/profile';
-export default class deploy {
+export default class remove {
     static handleInputs(inputs: any): Promise<{
         errorMessage: string;
         help?: undefined;
@@ -8,7 +8,6 @@ export default class deploy {
         credentials?: undefined;
         props?: undefined;
         args?: undefined;
-        table?: undefined;
     } | {
         help: boolean;
         subCommand: any;
@@ -17,26 +16,28 @@ export default class deploy {
         credentials?: undefined;
         props?: undefined;
         args?: undefined;
-        table?: undefined;
     } | {
         endpoint: string;
         credentials: ICredentials;
         subCommand: any;
         props: any;
         args: any;
-        table: any;
         errorMessage?: undefined;
         help?: undefined;
     }>;
-    constructor({ endpoint, credentials }: {
-        endpoint: string;
+    constructor({ credentials }: {
         credentials: ICredentials;
     });
-    deployFunction({ props, credentials }: {
-        props: any;
+    removeFunction({ endpoint, credentials, functionName }: {
+        endpoint: any;
         credentials: any;
+        functionName: any;
+    }): Promise<void>;
+    removeTrigger({ credentials, props, functionBrn }: {
+        credentials: any;
+        props: any;
+        functionBrn: any;
     }): Promise<any>;
-    deployTrigger(functionBrn: string, props: any, credentials: ICredentials): Promise<any>;
     getBrn(props: any, credentials: any): Promise<any>;
-    deploy(props: any, subCommand: any, credentials: any, inputs: any): Promise<any>;
+    remove(endpoint: any, props: any, subCommand: any, credentials: any): Promise<any>;
 }

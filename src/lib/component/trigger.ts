@@ -1,4 +1,3 @@
-//@ts-ignore
 import * as core from '@serverless-devs/core';
 import { ICredentials } from '../interface/profile';
 import Client from '../client';
@@ -41,33 +40,87 @@ export default class Trigger {
       });
   }
 
-  async list(props){
-
-  }
-
   async create(props:IProps){
     const Target = props.target;
     const Source = props.source;
     const Data = props.data || {};
-
-    const vm = core.spinner('Trigger creating...');
     let body = {
       Target,
       Source,
       Data,
     };
-    await Client.cfcClient
+    return await Client.cfcClient
       .createRelation(body)
       .then(function (response) {
-        vm.succeed('Trigger created');
-        return response.body;
+        return {response: response.body};
       })
       .catch(function (err) {
-        vm.fail('Trigger create failed.');
-        logger.error(err.message.Message);
-        return err;
+        return {error: err};
       });
   }
 
-  async update()
+  async update(props:IProps){
+    const Target = props.target;
+    const RelationId = props.relationId;
+    const Source = props.source;
+    const Data = props.data;
+    return await Client.cfcClient
+      .updateRelation({
+        Target,
+        RelationId,
+        Source,
+        Data
+      })
+      .then((response) => {
+        return response.body;
+      })
+      .catch((err) => {
+        logger.error(err.message.Message);
+        return {
+          fail:true,
+          error: err
+        }
+      })
+  }
+
+  async list(functionBrn: string, table?: boolean) {
+    logger.info(`Getting listFunctions`);
+    const data = await Client.cfcClient.listRelations({FunctionBrn: functionBrn})
+      .then((response) => {
+        return response.body;
+      })
+      .catch((err) => {
+        logger.error(err.message.Message);
+      });
+    if (table) {
+      tableShow(data.Relation, ['Source', 'Target', 'UpdatedAt']);
+    } else {
+      return data;
+    }
+  }
+
+  async remove(props:IProps){
+    const vm = core.spiner('Trigger deleting...');
+    const Target = props.target;
+    const Source = props.source;
+    const RelationId = props.relationId;
+    const options = {
+      Target,
+      Source,
+      RelationId
+    };
+
+    const message = "Trigger relationId:" + RelationId;
+    logger.info(message);
+    return await Client.cfcClient.deleteRelation(options)
+      .then((response) => {
+        vm.succeed('Trigger deleted');
+        return response.body;
+      })
+      .catch((err) => {
+        vm.fail('Trigger failed.');
+        logger.error(err.message.Message); 
+        return err
+      })
+  }
 }

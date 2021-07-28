@@ -9,6 +9,7 @@ export default class Function {
     updateConfig(props: any): Promise<void>;
     info(props: any): Promise<void>;
     list(table?: boolean): Promise<any>;
-    remove(props: any): Promise<void>;
+    remove(FunctionName: any): Promise<void>;
     getConfig(props: any): Promise<void>;
+    getBrnByFunctionName(functionName: any): Promise<any>;
 }
