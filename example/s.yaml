@@ -13,8 +13,8 @@ services:
         codeUri: ./
         publish: false
         dryRun: true
-      functionName: TestSubCommandDeployFunction
-      description: CFC demo
+      functionName: TestTriggers
+      description: 用于测试各种trigger
       handler: index.handler 
       endpoint: cfc.bj.baidubce.com
       protocol: https
@@ -22,12 +22,19 @@ services:
       timeout: 3
       memorySize: 128
       trigger:
-        # relationId: brn:bce:cfc-http-trigger:bj:eb4fdf97f9b8d875eae5eb1d91a026a1:583d0dfc5cb5970e334be9323d4e48f1/cfc/GET/hello9
-        source: cfc-http-trigger/v1/CFCAPI	
+        source: cdn
         data: 
-          ResourcePath: /hello9-5
-          Method: GET
-          AuthType: anonymous
+          EventType: CachedObjectsPushe
+          Status: enabled
+
+          # Brn: brn:bce:cfc:bj:eb4fdf97f9b8d875eae5eb1d91a026a1:function:TestTriggers:$LATEST
+          # Name: testCrontabName
+          # ScheduleExpression: rate(1 minute)
+
+          # Enable: Enabled
+          # resourcePath: /testTrigger
+          # method: GET
+          # authType: anonymous
       environment:
         additionalProp1: 环境变量1
         additionalProp2: 环境变量2
