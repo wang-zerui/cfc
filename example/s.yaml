@@ -24,7 +24,7 @@ services:
       trigger:
         source: cdn
         data: 
-          EventType: CachedObjectsPushe
+          EventType: CachedObjectsPushed
           Status: enabled
 
           # Brn: brn:bce:cfc:bj:eb4fdf97f9b8d875eae5eb1d91a026a1:function:TestTriggers:$LATEST
