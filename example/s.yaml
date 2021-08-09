@@ -22,10 +22,18 @@ services:
       timeout: 3
       memorySize: 128
       trigger:
-        source: cdn
-        data: 
-          EventType: CachedObjectsPushed
+        source: bos
+        bucket: wzr-test
+        data:
+          Resource: /
+          Name: wwww
           Status: enabled
+          EventType: 
+            - PutObject
+        # source: cdn
+        # data: 
+        #   EventType: CachedObjectsPushed
+        #   Status: enabled
 
           # Brn: brn:bce:cfc:bj:eb4fdf97f9b8d875eae5eb1d91a026a1:function:TestTriggers:$LATEST
           # Name: testCrontabName
