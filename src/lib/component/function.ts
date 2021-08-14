@@ -3,18 +3,18 @@ import * as core from '@serverless-devs/core';
 import { ICredentials } from '../interface/profile';
 import Client from '../client';
 import get from 'lodash.get';
-import { startZip, tableShow } from '../utils'
+import { startZip, tableShow, deleteZip } from '../utils';
 import logger from '../../common/logger';
 let CONFIGS = require('../config');
 
 //@ts-ignore
-interface IProps { 
+interface IProps {
   endpoint: string;
   description?: string;
   functionName?: string;
 }
 
-// const FUNCTION_COMMAND: string[] = ['create', 'list', 'info', 'remove', 'updateCode', 'updateConfig', 'getConfig']; 
+// const FUNCTION_COMMAND: string[] = ['create', 'list', 'info', 'remove', 'updateCode', 'updateConfig', 'getConfig'];
 // const FUNCTION_COMMAND_HELP_KEY = {
 //   create: 'FunctionCreateInputsArgs',
 //   list: 'FunctionListInputsArgs',
@@ -26,75 +26,20 @@ interface IProps {
 // };
 
 export default class Function {
-  /*
-  static async handlerInputs(inputs) {
-    logger.debug(`inputs.props: ${JSON.stringify(inputs.props)}`);
-
-    const parsedArgs: {[key: string]: any} = core.commandParse(inputs, {
-      boolean: ['help', 'table', 'y'],
-      string: ['endpoint', 'function-name', 'description'],
-      alias: { help: 'h'},
-    });
-
-    // 注意有三种不同的return方式
-    const parsedData = parsedArgs?.data || {};
-    const rawData = parsedData._ || [];
-    // if (!rawData.length) {
-    //   return { help: true, helpKey: 'FunctionInputsArgs' };
-    // }
-
-    const subCommand = rawData[0] || 'all';
-    logger.debug(`version subCommand: ${subCommand}`);
-
-    if (!FUNCTION_COMMAND.includes(subCommand)) {
-      // 没有对应参数时返回
-      return {
-        help: true,
-        helpKey: 'FunctionInputsArgs',
-        errorMessage: `Does not support ${subCommand} command`,
-      };
-    }
-
-    if (parsedData.help) {
-      // 
-      return { help: true, helpKey: FUNCTION_COMMAND_HELP_KEY[subCommand], subCommand };
-    }
-
-    const props = inputs.props || {};
-
-    const endProps: IProps = {
-      endpoint: parsedData.endpoint || props.endpoint,
-      description: parsedData.description,
-      functionName: parsedData['function-name'] || props.functionName,
-      // version: parsedData.id,
-      // assumeYes: parsedData.y,
-    };
-
-    if (!endProps.endpoint) {
-      throw new Error('Not fount region');
-    }
-    if (!endProps.functionName) {
-      throw new Error('Not fount serviceName');
-    }
-
-    const credentials: ICredentials = inputs.credentials || await core.getCredential(inputs?.project?.access);
-    logger.debug(`handler inputs props: ${JSON.stringify(endProps)}`);
-
-    return {
-      credentials,
-      subCommand,
-      endProps,
-      // table: parsedData.table,
-    };
-  }
-  */
-
   constructor({ endpoint, credentials }: { endpoint: string; credentials: ICredentials }) {
     Client.setCfcClient(credentials, endpoint);
   }
 
-  async create(props){
+  /**
+   * 创建函数
+   * @param props
+   * @returns res
+   * @returns functionBrn
+   */
+  async create(props) {
+    // 获取代码包编码
     const ZipFile = await startZip(props.code.codeUri || './');
+    // 请求参数预处理
     let tempInputs = {
       Code: {
         ZipFile,
@@ -112,6 +57,7 @@ export default class Function {
     if (props.code.dryRun) {
       tempInputs.Code['DryRun'] = props.code.dryRun;
     }
+    // 可选参数梳理
     const keys = ['Environment', 'LogType', 'DeadLetterTopic', 'LogBosDir'];
     for (let i of keys) {
       let value = get(props, i.toLowerCase());
@@ -121,28 +67,40 @@ export default class Function {
     }
     const body = tempInputs;
 
-    const vm = core.spinner('Function Creating');
-    await Client.cfcClient
+    const vm = core.spinner(`Function ${props.functionName} creating.`);
+    await deleteZip(props.code.codeUri + '/hello.zip');
+    // 进行请求
+    const response = await Client.cfcClient
       .createFunction(body)
       .then((response) => {
-        vm.succeed('Function deploy completed');
-        // logger.info(response.body);                                               // TODO:添加输出处理
-        return response;
+        vm.succeed(`Function ${props.functionName} created.`);
+        return response.body;
       })
       .catch((err) => {
-        vm.fail('Function deploy failed');
-        logger.error(err.message.Message);
+        vm.fail(`Function ${props.functionName} creating failed.`);
+        throw new Error(err.message.Message);
       });
+    // 处理返回
+    // res返回response.body
+    // 返回funcitonBrn用于创建触发器
+    return this.handleResponse(response);
   }
-  
-  async updateCode(props){
+
+  /**
+   * 更新代码
+   * @param props
+   * @returns res
+   * @returns functionBrn
+   */
+  async updateCode(props) {
     const functionName = props.functionName;
-    if(!functionName){
-      throw new Error('Not found functionName');
+    if (!functionName) {
+      throw new Error('FunctionName not found.');
     }
     const codeUri = props.code.codeUri || CONFIGS.codeUri;
     const vm1 = core.spinner('File compressing...');
     const ZipFile = await startZip(codeUri);
+    await deleteZip(props.code.codeUri + '/hello.zip');
     vm1.succeed('File compression completed');
     let body = {
       ZipFile,
@@ -153,32 +111,32 @@ export default class Function {
     if (props.code.dryRun) {
       body['DryRun'] = props.code.dryRun;
     }
-    const vm2 = core.spinner('Function deploying...');
-    let functionBrn: any;
-    await Client.cfcClient
+    const vm2 = core.spinner('Function code updating...');
+
+    const response = await Client.cfcClient
       .updateFunctionCode(functionName, body)
       .then(function (response) {
-        vm2.succeed('Function deployed');
-        // TODO:处理输出
-        // logger.info(response);
-        functionBrn = response.body.FunctionBrn;
+        vm2.succeed(`Function ${functionName} code updated`);
+        return response.body;
       })
       .catch(function (err) {
         vm2.fail('Function deploy failed');
-        // logger.error(err);
+        throw new Error(err.message.Message);
       });
-    return functionBrn;
+    return this.handleResponse(response);
   }
 
-  async updateConfig(props){
+  /**
+   * 更新配置
+   * @param props
+   * @returns res
+   * @returns functionBrn
+   */
+  async updateConfig(props) {
     const vm = core.spinner('Function configuration updating...');
     const FunctionName = props.functionName;
-    if(!FunctionName){
-      throw new Error('Not found functionName');
-    }
     if (!FunctionName) {
-      vm.fail('执行失败，未填写函数名');
-      return;
+      throw new Error('FunctionName not found.');
     }
 
     const keys = ['Description', 'Timeout', 'Handler', 'Runtime', 'Environment'];
@@ -190,42 +148,49 @@ export default class Function {
       }
     }
 
-    await Client.cfcClient
+    const response = await Client.cfcClient
       .updateFunctionConfiguration(FunctionName, body)
       .then(function (response) {
         vm.succeed('Function configuration update completed');
-        // TODO:结果处理
-        // logger.info(response);
+        return response;
       })
       .catch(function (err) {
         vm.fail('Function configuration update failed');
-        logger.error(err.body);
+        throw new Error(err.message.Message);
       });
+
+    // 处理返回
+    // res返回response.body
+    // 返回funcitonBrn用于创建触发器
+    return this.handleResponse(response);
   }
 
-  async info(props){
+  async info(props) {
     const FunctionName = props.functionName;
-    if(!FunctionName){
+    if (!FunctionName) {
       throw new Error('Not found functionName');
     }
-    await Client.cfcClient
+    return await Client.cfcClient
       .getFunction(FunctionName)
       .then((response) => {
-        
+        return response.body;
       })
       .catch((err) => {
         logger.error('获取函数信息失败');
         logger.error(err.body);
-      })
+      });
   }
 
   async list(table?: boolean): Promise<any> {
-    const data = await Client.cfcClient.listFunctions()
+    const data = await Client.cfcClient
+      .listFunctions()
       .then((response) => {
         return response.body.Functions;
       })
       .catch((err) => {
-        return err.message.Message;
+        logger.info(err);
+        logger.debug(`${err}`);
+        throw new Error(err.message.Message);
       });
     if (table) {
       tableShow(data, ['FunctionName', 'Description', 'UpdatedAt', 'LastModified', 'Region']);
@@ -235,30 +200,32 @@ export default class Function {
     }
   }
 
-  async remove(FunctionName){
-    if(!FunctionName){
+  async remove(FunctionName) {
+    if (!FunctionName) {
       throw new Error('Not found functionName');
     }
-    const vm = core.spinner('Function deleting...');
-    await Client.cfcClient
+    const vm = core.spinner('Function ' + FunctionName + ' deleting...');
+    return await Client.cfcClient
       .deleteFunction(FunctionName)
       .then((response) => {
-        vm.succeed('Function deleted');
+        vm.succeed(`Function ${FunctionName} deleted`);
         return response;
       })
       .catch((err) => {
-        vm.fail('Function delete failed.')
-        logger.error('函数删除错误');
-        logger.error(err.message.Message);
-      })
+        vm.fail('Function delete failed.');
+        logger.error('Function remove failed. ');
+        logger.debug(JSON.stringify(err));
+        throw new Error(err.message.Message);
+      });
   }
 
-  async getConfig(props){
+  async getConfig(props) {
     const FunctionName = props.functionName;
-    if(!FunctionName){
+    if (!FunctionName) {
       throw new Error('Not found functionName');
     }
-    await Client.cfcClient.getFunctionConfiguration(FunctionName)
+    await Client.cfcClient
+      .getFunctionConfiguration(FunctionName)
       .then((response) => {
         logger.info(response.body);
         return response.body;
@@ -266,21 +233,72 @@ export default class Function {
       .catch((err) => {
         logger.error('函数配置获取错误');
         logger.error(err.message.Message);
-      })
+      });
+  }
+
+  /**
+   * 一些衍生方法
+   */
+
+  /**
+   * Check function existance
+   */
+  async check(functionName) {
+    const vm = core.spinner('Checking if ' + functionName + ' exits...');
+    const functions = await this.list();
+    let isCreated = false;
+    for (let i = 0; i < functions.length; i++) {
+      if (functions[i].FunctionName === functionName) {
+        isCreated = true;
+        break;
+      }
+    }
+    if (isCreated) {
+      vm.succeed(`Function ${functionName} is already online.`);
+    } else {
+      vm.succeed(`Function ${functionName} does not exitst.`);
+    }
+    return isCreated;
   }
 
   async getBrnByFunctionName(functionName) {
     const FunctionName = functionName;
-    
+    logger.debug('Get functionBrn by function name:' + FunctionName);
     let functionBrn = await Client.cfcClient
       .getFunction(FunctionName)
       .then(function (response) {
         return response.body.Configuration.FunctionBrn;
       })
       .catch(function (err) {
-        logger.error('获取brn错误');
-        logger.error(err);
+        logger.error('Getting functionBrn failed!');
+        throw new Error(err.message.Message);
       });
     return functionBrn;
+  }
+
+  async handleResponse(response: any) {
+    logger.debug(`${response}`);
+    let content = [];
+    let descs = ['Description', 'Region', 'Timeout', 'Handler', 'Version', 'CodeSize', 'FunctionBrn', 'MemorySize'];
+    for (let i of descs) {
+      content.push({
+        desc: i,
+        example: `${response[i]}`,
+      });
+    }
+    content.push({
+      desc: 'More',
+      example: 'https://console.bce.baidu.com/cfc/#/cfc/function/info~name=TestTriggers',
+    });
+    logger.debug(`Calling Function response${JSON.stringify(content)}`);
+    return {
+      res: [
+        {
+          header: 'Function',
+          content,
+        },
+      ],
+      functionBrn: response.FunctionBrn,
+    };
   }
 }

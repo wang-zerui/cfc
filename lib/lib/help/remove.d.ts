@@ -54,7 +54,7 @@ export declare const DEPLOY_SERVICE: ({
     content: string[];
     optionList?: undefined;
 })[];
-export declare const DEPLOY_FUNCTION: ({
+export declare const REMOVE_FUNCTION: ({
     header: string;
     content: string;
     optionList?: undefined;
@@ -77,7 +77,7 @@ export declare const DEPLOY_FUNCTION: ({
     content: string[];
     optionList?: undefined;
 })[];
-export declare const DEPLOY_TRIGGER: ({
+export declare const REMOVE_TRIGGER: ({
     header: string;
     content: string;
     optionList?: undefined;
@@ -100,7 +100,7 @@ export declare const DEPLOY_TRIGGER: ({
     content: string[];
     optionList?: undefined;
 })[];
-export declare const DEPLOY_DOMAIN: ({
+export declare const REMOVE_DOMAIN: ({
     header: string;
     content: string;
     optionList?: undefined;

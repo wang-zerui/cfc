@@ -35,8 +35,21 @@ export default class deploy {
     deployFunction({ props, credentials }: {
         props: any;
         credentials: any;
-    }): Promise<any>;
-    deployTrigger(functionBrn: string, props: any, credentials: ICredentials): Promise<any>;
+    }): Promise<{
+        res: {
+            header: string;
+            content: any[];
+        }[];
+        functionBrn: any;
+    }>;
+    deployTrigger(functionBrn: string, props: any, credentials: ICredentials): Promise<{
+        header: string;
+        content: any[];
+    }[]>;
     getBrn(props: any, credentials: any): Promise<any>;
-    deploy(props: any, subCommand: any, credentials: any, inputs: any): Promise<any>;
+    getInfo(props: any, credentials: any, relationId: any): Promise<void>;
+    deploy(props: any, subCommand: any, credentials: any): Promise<{
+        header: string;
+        content: any[];
+    }[]>;
 }

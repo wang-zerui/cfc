@@ -137,12 +137,12 @@ export const DEPLOY_FUNCTION = [
         description: 'Deploy resource using local config',
         type: Boolean,
       },
-      {
-        name: 'assume-yes',
-        description: 'Assume that the answer to any question which would be asked is yes',
-        alias: 'y',
-        type: Boolean,
-      },
+      // {
+      //   name: 'assume-yes',
+      //   description: 'Assume that the answer to any question which would be asked is yes',
+      //   alias: 'y',
+      //   type: Boolean,
+      // },
     ],
   },
   {
@@ -167,22 +167,22 @@ export const DEPLOY_TRIGGER = [
   {
     header: 'Options',
     optionList: [
-      {
-        name: 'trigger-name',
-        description: 'Only deploy the specified trigger',
-        type: Boolean,
-      },
-      {
-        name: 'use-local',
-        description: 'Deploy resource using local config',
-        type: Boolean,
-      },
-      {
-        name: 'assume-yes',
-        description: 'Assume that the answer to any question which would be asked is yes',
-        alias: 'y',
-        type: Boolean,
-      },
+      // {
+      //   name: 'trigger-name',
+      //   description: 'Only deploy the specified trigger',
+      //   type: Boolean,
+      // },
+      // {
+      //   name: 'use-local',
+      //   description: 'Deploy resource using local config',
+      //   type: Boolean,
+      // },
+      // {
+      //   name: 'assume-yes',
+      //   description: 'Assume that the answer to any question which would be asked is yes',
+      //   alias: 'y',
+      //   type: Boolean,
+      // },
     ],
   },
   {

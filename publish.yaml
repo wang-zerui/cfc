@@ -1,52 +1,29 @@
 Type: Component
-Name: cfc
-Provider:
-  - 百度云
+Name: yaml
 Version: 0.0.1
+Category: 云应用
+HomePage: 'https://github.com/xinwuyun/cfc'
 Description: 百度云函数组件
-HomePage: xxx
-Tags:
-  - 函数计算
-Category: 基础云产品
-Commands:
-  deploy: 部署资源
-Service:
-  函数计算:
-    Authorities:
-      - 创建函数
 Properties:
   code:
+    Description: 代码信息
     Required: true
+    Example: ''
+    Default: ''
     Type:
-      - Struct:
-        codeUri:
-          Required: true
-          Description: 项目路径
-          Type:
-            - String
-        publish:
-          Required: false
-          Description: 是否直接发布版本
-          Type:
-            - Boolean
-        dryRun:
-          Required: false
-          Description: 是否直接发布版本
-          Type:
-            - Boolean
+      - Struct: {}
   functionName:
+    Description: 函数名
     Required: true
-    Description: 函数名称
+    Example: cfc-function-test
+    Default: ''
     Type:
       - String
-  description:
-    Required: false
-    Description: 一个简短的说明 0-256字符
-    Type:
-      - String
-  handler:
+  descritpion:
+    Description: 函数描述
     Required: true
-    Description: 调用的入口函数, 最大长度为128
+    Example: Service testing function
+    Default: ''
     Type:
       - String
   runtime:
@@ -67,54 +44,72 @@ Properties:
         - lua5.3
         - dotnetcore2.2
         - powershell6.2
-  timeout:
+  handler:
+    Description: 运行语言
     Required: true
-    Description: 超时时间1-300
+    Example: ''
+    Default: index.handler
     Type:
-      - int
+      - String
+  timeout:
+    Description: 超时时间1-300
+    Required: true
+    Example: ''
+    Default: 30
+    Type:
+      - Number
   endpoint:
     Description:
       zh: 服务域名
       en: endpoint
     Required: true
+    Example: ''
+    Default: cfc.bj.baidubce.com
     Type:
       - Enum:
-          - cfc.bj.baidubce.com
-          - cfc.gz.baidubce.com
+          - cfc.su.baidubce.com
+          - cfc.su.baidubce.com
           - cfc.su.baidubce.com
   protocol:
-    Description:
-      zh: 协议类型
-      en: protocol
+    Description: 协议类型
     Required: true
+    Example: ''
+    Default: http
     Type:
       - Enum:
           - http
-          - https
+          - http
   memorySize:
-    Required: false
+    Description: '内存(MB,128的倍数)'
+    Required: true
+    Example: ''
     Default: 128
-    Description: 内存的大小，以MB为单位,必须为128的倍数
     Type:
-      - int
+      - Number
   environment:
-    Required: false
     Description: 环境变量
+    Required: true
+    Example: ''
+    Default: ''
     Type:
       - List<Struct>:
           Key:
-            Required: true
             Description: 环境变量Key
+            Required: true
+            Example: ''
+            Default: ''
             Type:
               - String
           Value:
-            Required: true
             Description: 环境变量Value
+            Required: true
+            Example: ''
+            Default: ''
             Type:
               - String
   logType:
     Required: false
-    Description: 日志类型bos（对象存储）/ none
+    Description: '日志类型bos（对象存储）/ none'
     Type:
       - String
   logBosDir:
@@ -146,33 +141,109 @@ Properties:
     Description: 函数死信队列配置
     Type:
       - String
+    Required: true
+    Description: 函数死信队列配置
+    Type:
+      - String
   trigger:
     Required: true
     Description: 触发器配置
     Type:
-      - Struct:
-        source:
-          Required: true
-          Description: 触发源
-          Type:
-            - Enum:
-              - dueros
-              - bos/your-bucket-name
-              - duedge
-              - cfc-http-trigger/v1/CFCAPI
-              - cfc-crontab-trigger/v1/
-        data:
-          Required: true
-          Description: 触发器参数配置
-          Type:
-            - List<Struct>:
-              Key:
-                Required: false
-                Description: 配置参数Key
-                Type:
-                  - String
-              Value:
-                Required: false
-                Description: 配置参数Value
-                Type:
-                  - String
+        - List<Struct>[BOS触发器]:
+          source: 
+            Required: true
+            Description: 触发器类型
+            Type:
+              - Enum:
+                - bos
+          bucket:
+            Required: true
+            Description: Bucket名称
+            Type:
+              - String
+          data:
+            Required: true
+            Descrtption: bos触发器参数
+            Type:
+              - List<Struct>
+                Resource:
+                  Required: true
+                  Description: 订阅的资源
+                  Type:
+                    - String
+                Name:
+                  Required: true
+                  Description: 触发器名称
+                  Type:
+                    - String
+                Status:
+                  Required: true
+                  Description: 状态
+                  Type:
+                    - Enum:
+                      - enabled
+                      - disabled
+                EventType:
+                  Required: true
+                  Description: BOS事件类型
+                  Tyep:
+                    - Enum:
+                      - PutObject
+                      - PostObject
+                      - AppendObject
+                      - CopyObject
+                      - CompleteMultipartObject
+        - List<Struct>[dueros触发器]:
+          source:
+            Required: true
+            Description: 触发器类型
+            Type:
+              - Enum:
+                - dueros
+        - List<struct>[CDN触发器]:
+          source:
+            Required: true
+            Description: 触发器类型
+            Type:
+              - Enum:
+                - cdn
+          data:
+            Required: true
+            Description: 触发器参数
+            Type:
+              - List<Struct>:
+                EventType:
+                  Required: true
+                  Description: CDN事件类型
+                  Type:
+                    - Enum:
+                      - CachedObjectsBlocked
+                      - CachedObjectsPushed
+                      - CachedObjectsRefreshed
+                      - CdnDomainCreated
+                      - CdnDomainDeleted
+                      - LogFileCreated
+                      - CdnDomainStarted
+                      - CdnDomainStopped
+        - List<Struct>[http触发器]:
+          source: 
+            Required: true
+            Description: 触发器类型
+            Type:
+              - Enum:
+                - cfc-http-trigger/v1/CFCAPI
+          data:
+            Required: true
+            Description: 触发器参数配置
+            Type:
+              - List<Struct>:
+                Key:
+                  Required: false
+                  Description: 配置参数Key
+                  Type:
+                    - String
+                Value:
+                  Required: false
+                  Description: 配置参数Value
+                  Type:
+                    - String

@@ -32,7 +32,7 @@ export default class remove {
         endpoint: any;
         credentials: any;
         functionName: any;
-    }): Promise<void>;
+    }): Promise<any>;
     removeTrigger({ credentials, props, functionBrn }: {
         credentials: any;
         props: any;

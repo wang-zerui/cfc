@@ -63,13 +63,13 @@ export declare const DEPLOY_FUNCTION: ({
     optionList: ({
         name: string;
         description: string;
+        alias: string;
         type: BooleanConstructor;
-        alias?: undefined;
     } | {
         name: string;
         description: string;
-        alias: string;
         type: BooleanConstructor;
+        alias?: undefined;
     })[];
     content?: undefined;
 } | {
@@ -86,13 +86,13 @@ export declare const DEPLOY_TRIGGER: ({
     optionList: ({
         name: string;
         description: string;
+        alias: string;
         type: BooleanConstructor;
-        alias?: undefined;
     } | {
         name: string;
         description: string;
-        alias: string;
         type: BooleanConstructor;
+        alias?: undefined;
     })[];
     content?: undefined;
 } | {
