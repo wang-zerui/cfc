@@ -18,7 +18,7 @@ $ s deploy
 
 ## 文档目录
 
-+ [入门相关](./docs/Getting-started/getting-started.md)
++ [入门相关](./docs/Getting-started/getting-start.md)
   + [开发工具安装](./docs/Getting-started/install.md)
   + [账号配置](./docs/Getting-started/config.md)
   + [快速体验](./docs/Getting-started/Hello-world-application.md)
