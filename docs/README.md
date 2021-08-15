@@ -4,9 +4,8 @@
 
 [百度云函数组件](https://github.com/xinwuyun/cfc)是一个用于支持百度云函数应用生性周期的工具，基于[Serverless Devs](https://www.serverless-devs.com/)进行开发，通过配置资源配置文件`s.yaml`，您可以简单快速地部署应用到[百度云函数计算平台](https://console.bce.baidu.com/cfc/#/cfc/overview)。
 
-本组件使用YAML规范（`s.yaml`）定义Serverless资源，定义了您的应用的函数、触发器等资源的配置。
+本组件使用[YAML规范](./Others/yaml.md)（`s.yaml`）定义Serverless资源，定义了您的应用的函数、触发器等资源的配置。
 
-[^此处填写yaml规范地址]:YAML规范地址
 ## 快速开始
 
 ```shell
