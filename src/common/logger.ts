@@ -1,31 +1,31 @@
-import i18n from './i18n';
-import { Logger } from '@serverless-devs/core';
+const { HLogger } = require('@serverless-devs/core');
 
 export default class ComponentLogger {
-  static CONTENT = '';
+  @HLogger('S-CORE') static logger;
+  static CONTENT = 'CFC';
   static setContent(content) {
     ComponentLogger.CONTENT = content;
   }
-  static log(m) {
-    Logger.log(i18n.__(m) || m);
+  static log(m, color?: 'black' | 'red' | 'green' | 'yellow' | 'blue' | 'magenta' | 'cyan' | 'white' | 'whiteBright' | 'gray') {
+    this.logger.log(m, color);
   }
   static info(m) {
-    Logger.info(ComponentLogger.CONTENT, i18n.__(m) || m);
+    this.logger.info(ComponentLogger.CONTENT, m);
   }
 
   static debug(m) {
-    Logger.debug(ComponentLogger.CONTENT, i18n.__(m) || m);
+    this.logger.debug(ComponentLogger.CONTENT, m);
   }
 
   static error(m) {
-    Logger.error(ComponentLogger.CONTENT, i18n.__(m) || m);
+    this.logger.error(ComponentLogger.CONTENT, m);
   }
 
   static warning(m) {
-    Logger.warn(ComponentLogger.CONTENT, i18n.__(m) || m);
+    this.logger.warn(ComponentLogger.CONTENT, m);
   }
 
   static success(m) {
-    Logger.log(i18n.__(m) || m, 'green');
+    this.logger.log(m, 'green');
   }
 }

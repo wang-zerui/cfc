@@ -10,3 +10,4 @@ export interface ServerlessProfile {
     };
     appName: string;
 }
+export declare function mark(source: string): string;
