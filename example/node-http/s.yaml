@@ -9,8 +9,8 @@ services:
         codeUri: ./
         publish: false
         dryRun: true
-      functionName: TestCrontab
-      description: 用于测试各种trigger
+      functionName: test
+      description: 测试函数
       handler: index.handler 
       endpoint: cfc.bj.baidubce.com
       protocol: https
@@ -21,7 +21,7 @@ services:
         source: cfc-http-trigger/v1/CFCAPI
         data:
           Enable: Enabled
-          ResourcePath: /testTrigger1
+          ResourcePath: /test
           Method: GET
           AuthType: anonymous
         # bucket: wzr-test
