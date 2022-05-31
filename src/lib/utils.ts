@@ -32,6 +32,7 @@ export async function readDir(obj, nowPath, targetDir) {
 }
 
 export async function startZip(codePath: string) {
+  logger.info(codePath);
   const targetDir = path.resolve(codePath);
   try {
     await readDir(zip, targetDir, targetDir);
@@ -39,7 +40,7 @@ export async function startZip(codePath: string) {
       type: 'nodebuffer',
       compression: 'DEFLATE',
     });
-    fs.writeFile('hello.zip', data, function (err) {
+    fs.writeFile(targetDir+'/hello.zip', data, function (err) {
       /*...*/
     });
 

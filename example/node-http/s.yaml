@@ -1,15 +1,15 @@
 edition: 1.0.0        #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
 name: component-test   #  项目名称
-alias: default
+access: baidu
 services:
   component-test: #  服务名称
     component: ../../lib  # 这里引入的是相对路径，正式配置替换成你自己的component名称即可 
     props:
       code:
-        codeUri: ./
+        codeUri: ./code
         publish: false
         dryRun: true
-      functionName: test
+      functionName: test-20220531
       description: 测试函数
       handler: index.handler 
       endpoint: cfc.bj.baidubce.com
@@ -21,7 +21,7 @@ services:
         source: cfc-http-trigger/v1/CFCAPI
         data:
           Enable: Enabled
-          ResourcePath: /test
+          ResourcePath: /test1
           Method: GET
           AuthType: anonymous
         # bucket: wzr-test

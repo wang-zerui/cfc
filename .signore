@@ -4,4 +4,7 @@ tsconfig.json
 LICENSE
 package-lok.json
 .prettierrc.js
+README.md
 .gitignore
+yarn-error.log
+yarn.lock

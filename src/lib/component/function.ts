@@ -39,6 +39,7 @@ export default class Function {
   async create(props) {
     // 获取代码包编码
     const ZipFile = await startZip(props.code.codeUri || './');
+    logger.debug("zip to " + props.code.codeUri || './');
     // 请求参数预处理
     let tempInputs = {
       Code: {

@@ -10,7 +10,9 @@
 
 ```shell
 $ git clone https://github.com/xinwuyun/cfc
-$ cd cfc/example
+$ cd cfc
+$ npm install
+$ cd example/node-http
 $ s deploy
 ```
 
@@ -34,3 +36,6 @@ $ s deploy
 
 如您在使用中遇到问题，可以在[这里反馈](https://github.com/xinwuyun/cfc/issues)
 
+## TODO
+
++ [x] publish.yaml的trigger部分还没写好
