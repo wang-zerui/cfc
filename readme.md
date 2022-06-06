@@ -16,7 +16,7 @@ $ cd example/node-http
 $ s deploy
 ```
 
-为了让您更好地体验阿里云函数计算组件，您可以参考[快速入门文档](./docs/Getting-started/Hello-world-application.md)
+为了让您更好地体验百度云函数计算组件，您可以参考[快速入门文档](./docs/Getting-started/Hello-world-application.md)
 
 ## 文档目录
 
